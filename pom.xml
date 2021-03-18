@@ -49,7 +49,7 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/PoSpot/pet-clinic.git</developerConnection>
-      <tag>HEAD</tag>
+<!--      <tag>HEAD</tag>-->
   </scm>
 
 </project>
