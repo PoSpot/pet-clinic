@@ -14,7 +14,7 @@
     </parent>
     <groupId>guru.springframework</groupId>
     <artifactId>sfg-pet-clinic</artifactId>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <name>sfg-pet-clinic</name>
     <description>SFG Pet Clinic Project</description>
     <properties>
@@ -50,7 +50,7 @@
     <scm>
         <developerConnection>scm:git:https://github.com/PoSpot/pet-clinic.git</developerConnection>
 <!--      <tag>HEAD</tag>-->
-    <tag>sfg-pet-clinic-1.1</tag>
+    <tag>HEAD</tag>
   </scm>
 
 </project>
