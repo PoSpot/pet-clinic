@@ -34,9 +34,7 @@ public abstract class BaseMapService<T extends BaseEntity> implements CrudServic
 
     private Long getNextId() {
 
-        if (map.isEmpty()) {
-            return 1L;
-        }
+        if (map.isEmpty()) return 1L;
         return Collections.max(map.keySet()) + 1;
     }
 }
