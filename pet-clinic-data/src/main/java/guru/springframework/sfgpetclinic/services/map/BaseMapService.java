@@ -1,33 +1,42 @@
 package guru.springframework.sfgpetclinic.services.map;
 
+import guru.springframework.sfgpetclinic.model.BaseEntity;
 import guru.springframework.sfgpetclinic.services.CrudService;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public abstract class BaseMapService<T, ID> implements CrudService<T, ID> {
+public abstract class BaseMapService<T extends BaseEntity> implements CrudService<T, Long> {
 
-    protected Map<ID, T> map = new HashMap<>();
+    protected Map<Long, T> map = new HashMap<>();
 
-    public Set<T> findAll(){
+    public Set<T> findAll() {
         return new HashSet<>(map.values());
     }
 
-    public T findById(ID id){
+    public T findById(Long id) {
         return map.get(id);
     }
 
-    public T save(ID id, T t){
-        return map.put(id, t);
+    public T save(T t) {
+        if (t.getId() == null) {
+            t.setId(getNextId());
+        }
+        return map.put(t.getId(), t);
     }
 
-    public void deleteById(ID id){
+    public void deleteById(Long id) {
         map.remove(id);
     }
 
-    public void delete(T t){
+    public void delete(T t) {
         map.values().removeIf(t::equals);
+    }
+
+    private Long getNextId() {
+
+        if (map.isEmpty()) {
+            return 1L;
+        }
+        return Collections.max(map.keySet()) + 1;
     }
 }

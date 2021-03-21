@@ -5,12 +5,7 @@ import guru.springframework.sfgpetclinic.services.OwnerService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OwnerServiceMap extends BaseMapService<Owner, Long> implements OwnerService {
-
-    @Override
-    public Owner save(Owner owner) {
-        return super.save(owner.getId(), owner);
-    }
+public class OwnerServiceMap extends BaseMapService<Owner> implements OwnerService {
 
     @Override
     public Owner findByLastName(String name) {
