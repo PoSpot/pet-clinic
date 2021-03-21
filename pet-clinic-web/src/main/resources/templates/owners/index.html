@@ -5,6 +5,20 @@
     <title>Pet Owners List</title>
 </head>
 <body>
-    <h1 th:text="'OwnerOwner'">Owners List</h1>
+<h1>Owners List</h1>
+<table>
+    <thead>
+    <tr>
+        <th> First Name </th>
+        <th> Last Name </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="owner : ${owners}">
+        <td th:text="${owner.firstName}"></td>
+        <td th:text="${owner.lastName}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
