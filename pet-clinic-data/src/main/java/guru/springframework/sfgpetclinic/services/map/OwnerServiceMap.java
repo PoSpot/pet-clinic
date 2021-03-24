@@ -27,7 +27,7 @@ public class OwnerServiceMap extends BaseMapService<Owner> implements OwnerServi
 
         if(owner != null){
 
-            if (!owner.getPets().isEmpty()){
+            if (owner.getPets() != null){
 
                 owner.getPets().forEach(pet -> {
 

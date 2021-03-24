@@ -19,7 +19,8 @@ public class VetServiceMap extends BaseMapService<Vet> implements VetService {
 
         if(vet != null){
 
-            if (!vet.getSpecialities().isEmpty()){
+            // Better have setSpecialities() check for nulls than here.
+            if (vet.getSpecialities() != null){
 
                 vet.getSpecialities().forEach(speciality -> {
 
