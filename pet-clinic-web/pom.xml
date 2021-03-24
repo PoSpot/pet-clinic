@@ -12,13 +12,6 @@
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
-
-        <!-- Web dependencies TODO these guys here? or parent-->
-        <!-- Newest versions won't work -->
-        <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
-        <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
-        <webjars-jquery.version>2.2.4</webjars-jquery.version>
-        <wro4j.version>1.8.0</wro4j.version>
     </properties>
 
     <dependencies>
@@ -59,17 +52,14 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
-            <version>${webjars-jquery.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery-ui</artifactId>
-            <version>${webjars-jquery-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>${webjars-bootstrap.version}</version>
         </dependency>
         <!-- end of webjars -->
     </dependencies>
@@ -79,7 +69,6 @@
             <plugin>
                 <groupId>ro.isdc.wro4j</groupId>
                 <artifactId>wro4j-maven-plugin</artifactId>
-                <version>${wro4j.version}</version>
                 <executions>
                     <execution>
                         <phase>generate-resources</phase>
@@ -96,6 +85,9 @@
                     <contextFolder>${basedir}/src/main/less</contextFolder>
                 </configuration>
                 <dependencies>
+                    <!-- TODO try to take these versions to parent.
+                    Didn't work in DepMana-nt, nor in PliginMana-nt>..> ..> Dep-cies?
+                    Is the PluginMana>......>DepcyMana-nt?-->
                     <dependency>
                         <groupId>org.webjars</groupId>
                         <artifactId>bootstrap</artifactId>
