@@ -68,36 +68,6 @@
             <plugin>
                 <groupId>ro.isdc.wro4j</groupId>
                 <artifactId>wro4j-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
-                    <cssDestinationFolder>${project.build.directory}/classes/static/resources/css</cssDestinationFolder>
-                    <wroFile>${basedir}/src/main/wro/wro.xml</wroFile>
-                    <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
-                    <contextFolder>${basedir}/src/main/less</contextFolder>
-                </configuration>
-                <dependencies>
-                    <!-- TODO try to take these versions to parent.
-                    Didn't work in DepMana-nt, nor in PliginMana-nt>..> ..> Dep-cies?
-                    Is the PluginMana>......>DepcyMana-nt?-->
-                    <dependency>
-                        <groupId>org.webjars</groupId>
-                        <artifactId>bootstrap</artifactId>
-                        <version>${webjars-bootstrap.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.mockito</groupId>
-                        <artifactId>mockito-core</artifactId>
-                        <version>${mockito.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
