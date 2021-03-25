@@ -30,7 +30,6 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // TODO or some better impl later here
         if (ownerService instanceof OwnerServiceMap){
             loadData();
         }
