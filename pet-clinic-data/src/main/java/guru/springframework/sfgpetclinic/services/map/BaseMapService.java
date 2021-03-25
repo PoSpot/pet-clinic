@@ -18,7 +18,8 @@ public abstract class BaseMapService<T extends BaseEntity> implements CrudServic
     }
 
     public T save(T t) {
-        // !! John throws if null, but in OwnerServiceMap just returns null?
+
+        // !! John throws if null, but in OwnerServiceMap simply returns null?
         // TODO what does JPA do in case of null?
         if (t.getId() == null) {
             t.setId(getNextId());
