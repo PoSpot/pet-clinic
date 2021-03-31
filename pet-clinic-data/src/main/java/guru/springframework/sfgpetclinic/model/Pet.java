@@ -1,11 +1,21 @@
 package guru.springframework.sfgpetclinic.model;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
+@Entity
 public class Pet extends BaseEntity {
 
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
     private PetType petType;
+
+    @ManyToOne
+// TODO    @JoinColumn(name = "owner_id") // -> Cannot resolve column 'owner_id' , so anyways I believe it's not needed, removed
     private Owner owner;
     private LocalDate birthDate;
 
