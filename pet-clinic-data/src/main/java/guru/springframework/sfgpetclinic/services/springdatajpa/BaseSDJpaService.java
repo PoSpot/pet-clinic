@@ -10,38 +10,38 @@ import java.util.Set;
 //@Service  You should not have @Component on top of an abstract class (abstr-> not to be instantiated) TODO
 public abstract class BaseSDJpaService<T extends BaseEntity> implements CrudService<T, Long> {
 
-    protected final CrudRepository<T, Long> baseRepo;
+    protected final CrudRepository<T, Long> crudRepo;
 
-    protected BaseSDJpaService(CrudRepository<T, Long> baseRepo) {
-        this.baseRepo = baseRepo;
+    protected BaseSDJpaService(CrudRepository<T, Long> crudRepo) {
+        this.crudRepo = crudRepo;
     }
 
     @Override
     public Set<T> findAll() {
         Set<T> set = new HashSet<>();
-        baseRepo.findAll().forEach(set::add);
+        crudRepo.findAll().forEach(set::add);
         return set;
     }
 
     @Override
     public T findById(Long aLong) {
 
-        return baseRepo.findById(aLong).orElse(null);
+        return crudRepo.findById(aLong).orElse(null);
     }
 
     @Override
     public T save(T t) {
 
-        return baseRepo.save(t); // TODO need cast? (T)
+        return crudRepo.save(t); // TODO need cast? (T)
     }
 
     @Override
     public void deleteById(Long aLong) {
-        baseRepo.deleteById(aLong);
+        crudRepo.deleteById(aLong);
     }
 
     @Override
     public void delete(T t) {
-        baseRepo.delete(t);
+        crudRepo.delete(t);
     }
 }
