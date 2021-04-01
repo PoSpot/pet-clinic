@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile({"default", "map"})
-public class VisitServiceMap extends BaseMapService<Visit> implements VisitService {
+public class VisitMapService extends BaseMapService<Visit> implements VisitService {
 
     // John's impl below, but not sure why we need those.
     // (fields: date, descr, pet will be checked later in validation, I guess).

@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile({"default", "map"})
-public class PetServiceMap extends BaseMapService<Pet> implements PetService {
+public class PetMapService extends BaseMapService<Pet> implements PetService {
 
     private final PetTypeService petTypeService;
 
-    public PetServiceMap(PetTypeService petTypeService) {
+    public PetMapService(PetTypeService petTypeService) {
         this.petTypeService = petTypeService;
     }
 
