@@ -2,7 +2,6 @@ package guru.springframework.sfgpetclinic.bootstrap;
 
 import guru.springframework.sfgpetclinic.model.*;
 import guru.springframework.sfgpetclinic.services.*;
-import guru.springframework.sfgpetclinic.services.map.OwnerMapService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +28,10 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (ownerService instanceof OwnerMapService){
+        // if no data in db:
+        int count = petTypeService.findAll().size();
+
+        if (count == 0 ){
             loadData();
         }
     }
