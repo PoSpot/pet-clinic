@@ -32,11 +32,6 @@ public abstract class BaseSDJpaService<T extends BaseEntity> implements CrudServ
     @Override
     public T save(T t) {
 
-        System.out.println("******************************");
-        System.out.println("******************************");
-        System.out.println("******************************");
-        System.out.println("******************************");
-        System.out.println("******************************");
         return baseRepo.save(t); // TODO need cast? (T)
     }
 
