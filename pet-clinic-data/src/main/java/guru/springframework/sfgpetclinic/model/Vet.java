@@ -25,12 +25,4 @@ public class Vet extends Person {
         super(id, firstName, lastName);
         this.specialities = specialities;
     }
-
-    public Set<Speciality> getSpecialities() {
-        return specialities;
-    }
-
-    public void setSpecialities(Set<Speciality> specialities) {
-        this.specialities = specialities;
-    }
 }
