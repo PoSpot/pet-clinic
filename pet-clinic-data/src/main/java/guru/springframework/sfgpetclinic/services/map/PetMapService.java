@@ -28,8 +28,6 @@ public class PetMapService extends BaseMapService<Pet> implements PetService {
             throw new IllegalArgumentException("Pet Type is required on Pet entity");
         }
 
-
-
         return super.save(pet);
     }
 }
