@@ -19,9 +19,9 @@ public class OwnerMapService extends BaseMapService<Owner> implements OwnerServi
     @Override
     public Owner findByLastName(String name) {
         return map.values().stream()
-                .filter(value -> value.getLastName().equals(name))
+                .filter(value -> value.getLastName().equalsIgnoreCase(name))
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 
     @Override

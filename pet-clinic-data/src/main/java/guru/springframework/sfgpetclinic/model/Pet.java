@@ -11,6 +11,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+// This builder leaves the visit set null
 @Builder
 @Entity
 public class Pet extends BaseEntity {
