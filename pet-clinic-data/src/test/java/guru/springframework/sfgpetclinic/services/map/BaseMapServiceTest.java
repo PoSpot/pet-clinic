@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BaseMapServiceTest extends BaseMapService {
+class BaseMapServiceTest {
 
     PetTypeMapService service;
 
