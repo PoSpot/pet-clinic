@@ -37,7 +37,8 @@ class BaseMapServiceTest {
 
     @Test
     void testSaveExistingId() {
-        service.save(PetType.builder().name(cat).id(2L).build());
+        PetType savedType = service.save(PetType.builder().name(cat).id(2L).build());
+        assertNotNull(savedType);
         assertEquals(cat, service.findById(2L).getName());
     }
 
