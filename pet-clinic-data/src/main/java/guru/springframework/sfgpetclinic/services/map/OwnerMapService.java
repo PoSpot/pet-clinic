@@ -6,6 +6,8 @@ import guru.springframework.sfgpetclinic.services.PetService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Profile({"default", "map"})
 public class OwnerMapService extends BaseMapService<Owner> implements OwnerService {
@@ -22,6 +24,12 @@ public class OwnerMapService extends BaseMapService<Owner> implements OwnerServi
                 .filter(value -> value.getLastName().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    // EXERCISE
+    public List<Owner> findByLastNameLike(String lastName) {
+        throw new RuntimeException("Not implemented yet!");
     }
 
     @Override

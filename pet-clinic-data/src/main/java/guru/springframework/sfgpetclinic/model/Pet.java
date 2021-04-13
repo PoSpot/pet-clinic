@@ -23,7 +23,7 @@ public class Pet extends BaseEntity {
     private PetType petType;
 
     @ManyToOne
-// TODO    @JoinColumn(name = "owner_id") I believe it's not needed, removed
+// KEEPINMIND    @JoinColumn(name = "owner_id") I believe it's not needed, removed
     private Owner owner;
     private LocalDate birthDate;
 

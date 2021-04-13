@@ -7,12 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Profile("springdatajpa")
 public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerService {
 
-    // the example has a repo field here? TODO (+ all other services)
+    // the example has a repo field here? KEEPINMIND (+ all other services)
     public OwnerSDJpaService(OwnerRepository ownerRepo) {
         super(ownerRepo);
         log.info("Creating Owner SD JPA Service");
@@ -21,5 +23,10 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
     @Override
     public Owner findByLastName(String name) {
         return ((OwnerRepository) crudRepo).findByLastName(name).orElse(null);
+    }
+
+    @Override
+    public List<Owner> findByLastNameLike(String lastName) {
+        return ((OwnerRepository) crudRepo).findByLastNameLike("%" + lastName + "%");
     }
 }
