@@ -36,7 +36,7 @@ public class OwnerController {
     }
 
     @GetMapping("/find")
-    public String findOwners(Model model){
+    public String findOwners(Model model) {
         model.addAttribute("owner", new Owner());
         return "owners/findOwners";
     }
@@ -56,16 +56,15 @@ public class OwnerController {
             // back to the form with an error set to the lastName field
             result.rejectValue("lastName", "notFound", "not found");
             return "owners/findOwners";
-        }
-        else if (results.size() == 1) {
+        } else if (results.size() == 1) {
             // 1 owner found
             owner = results.iterator().next();
             return "redirect:/owners/" + owner.getId();
-        }
-        else {
+        } else {
             // multiple owners found
             model.addAttribute("selections", results);
-            // -> http://localhost:8080/owners?lastName=Wilson : i.e. the above, current URL, but this path param?
+            // -> http://localhost:8080/owners?lastName=Wilson :
+            // i.e. the current URL (+ the Path var, cos the method is GET)
             return "owners/ownersList";
         }
     }
