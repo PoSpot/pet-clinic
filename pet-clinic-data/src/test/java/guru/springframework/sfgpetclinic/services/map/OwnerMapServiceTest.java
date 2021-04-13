@@ -25,18 +25,6 @@ class OwnerMapServiceTest {
     }
 
     @Test
-    void findByLastName() {
-        Owner owner = service.findByLastName(LAST_NAME);
-        assertNotNull(owner);
-        assertEquals(LAST_NAME, owner.getLastName());
-    }
-
-    @Test
-    void findByLastNameNotFound() {
-        assertNull(service.findByLastName(OTHER_LAST_NAME));
-    }
-
-    @Test
     void testSaveNull() {
         Owner savedOwner = service.save(null);
         assertNull(savedOwner);
