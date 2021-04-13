@@ -4,7 +4,10 @@ import guru.springframework.sfgpetclinic.model.PetType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class BaseMapServiceTest {
 
@@ -23,9 +26,10 @@ class BaseMapServiceTest {
 
     @Test
     void testFindAll() {
-        assertEquals(1, service.findAll().size());
+        assertThat(service.findAll(), hasSize(1));
+        // The above has much clearer messages than: assertEquals(1, service.findAll().size());
         service.save(PetType.builder().name(cat).build());
-        assertEquals(2, service.findAll().size());
+        assertThat(service.findAll(), hasSize(2));
     }
 
     @Test
