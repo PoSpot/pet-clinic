@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -37,10 +38,6 @@ public class Pet extends BaseEntity {
         this.petType = petType;
         this.owner = owner;
         this.birthDate = birthDate;
-        if (visits != null) {
-            this.visits = visits;
-        } else {
-            this.visits = new HashSet<>();
-        }
+        this.visits = Objects.requireNonNullElseGet(visits, HashSet::new);
     }
 }

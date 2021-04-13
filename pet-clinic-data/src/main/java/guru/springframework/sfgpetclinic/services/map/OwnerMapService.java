@@ -18,16 +18,8 @@ public class OwnerMapService extends BaseMapService<Owner> implements OwnerServi
         this.petService = petService;
     }
 
-    @Override
-    public Owner findByLastName(String name) {
-        return map.values().stream()
-                .filter(value -> value.getLastName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
     // EXERCISE
+    @Override
     public List<Owner> findByLastNameLike(String lastName) {
         throw new RuntimeException("Not implemented yet!");
     }

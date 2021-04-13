@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -31,10 +32,6 @@ public class Owner extends Person {
         this.address = address;
         this.city = city;
         this.telephone = telephone;
-        if (pets != null) {
-            this.pets = pets;
-        } else {
-            this.pets = new HashSet<>();
-        }
+        this.pets = Objects.requireNonNullElseGet(pets, HashSet::new);
     }
 }

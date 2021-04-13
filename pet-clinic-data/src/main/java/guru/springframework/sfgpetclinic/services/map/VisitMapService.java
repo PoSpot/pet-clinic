@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 @Profile({"default", "map"})
 public class VisitMapService extends BaseMapService<Visit> implements VisitService {
 
-    // John's impl below, but not sure why we need those.
+    // KEEPINMIND John's impl below, but not sure why we need those.
     // (fields: date, descr, pet will be checked later in validation, I guess).
     // same for the fields' fields.
-//        @Override
-//        public Visit save(Visit visit) {
-//
-//            if(visit.getPet() == null || visit.getPet().getOwner() == null || visit.getPet().getId() == null
-//                    || visit.getPet().getOwner().getId() == null){
-//                throw new RuntimeException("Invalid Visit");
-//            }
-//
-//            return super.save(visit);
-//        }
+/*        @Override
+        public Visit save(Visit visit) {
+
+            if(visit.getPet() == null || visit.getPet().getOwner() == null || visit.getPet().getId() == null
+                    || visit.getPet().getOwner().getId() == null){
+                throw new RuntimeException("Invalid Visit");
+            }
+
+            return super.save(visit);
+        }*/
 }

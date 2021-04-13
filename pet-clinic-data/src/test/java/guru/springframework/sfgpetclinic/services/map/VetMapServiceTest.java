@@ -1,16 +1,13 @@
 package guru.springframework.sfgpetclinic.services.map;
 
+import guru.springframework.sfgpetclinic.model.Vet;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 
-class VetMapServiceTest extends BaseMapService {
+class VetMapServiceTest extends BaseMapService<Vet> {
 
     @BeforeEach
     void setUp() {
     }
 
-    @Test
-    @Disabled// .. same as PetMapServiceTest..: set of smth
-    void testSave() {}
+    // .. same as PetMapServiceTest..: set of smth...
 }

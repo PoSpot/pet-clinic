@@ -21,11 +21,6 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
     }
 
     @Override
-    public Owner findByLastName(String name) {
-        return ((OwnerRepository) crudRepo).findByLastName(name).orElse(null);
-    }
-
-    @Override
     public List<Owner> findByLastNameLike(String lastName) {
         return ((OwnerRepository) crudRepo).findByLastNameLike("%" + lastName + "%");
     }
