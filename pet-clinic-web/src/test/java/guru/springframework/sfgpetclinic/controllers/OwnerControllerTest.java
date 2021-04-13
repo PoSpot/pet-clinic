@@ -21,8 +21,6 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -30,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class OwnerControllerTest {
 
-    public static final long ID = 1l;
+    public static final long ID = 1L;
     public static final String LAST_NAME = "Po";
 
     @InjectMocks
@@ -53,7 +51,7 @@ class OwnerControllerTest {
     void setUp() {
         owners = new HashSet<>();
         owners.add(Owner.builder().id(ID).build());
-        owners.add(Owner.builder().id(2l).build());
+        owners.add(Owner.builder().id(2L).build());
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
@@ -94,7 +92,7 @@ class OwnerControllerTest {
 
     @Test /*Unable to send owner-mock with perform in order to verify(owner).setLastName("") =>
     so call the method directly*/
-    void processFindOwnersEmptyStringAllOwners() throws Exception {
+    void processFindOwnersEmptyStringAllOwners() {
         //given
         when(service.findByLastNameLike("")).thenReturn(new ArrayList<>(owners));
         ArgumentCaptor<List<Owner>> argumentCaptor = ArgumentCaptor.forClass(List.class);
