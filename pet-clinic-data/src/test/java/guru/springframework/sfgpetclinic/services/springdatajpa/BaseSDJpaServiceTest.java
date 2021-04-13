@@ -21,7 +21,12 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class BaseSDJpaServiceTest {
 
-    private final long id = 1L;
+    public static final long ID = 1L;
+    public static final String LAST_NAME = "Smith";
+    public static final String PET_TYPE = "dog";
+    public static final String PET_NAME = "Terry";
+    public static final String OTHER_PET_TYPE = "cat";
+    public static final String OTHER_PET_NAME = "Tochka";
 
     @InjectMocks
     PetSDJpaService service;
@@ -33,9 +38,9 @@ class BaseSDJpaServiceTest {
 
     @BeforeEach
     void setUp() {
-        Owner owner = Owner.builder().lastName("Smith").build();
-        PetType type = PetType.builder().name("dog").build();
-        pet = Pet.builder().petType(type).owner(owner).name("Terry").id(id).build();
+        Owner owner = Owner.builder().lastName(LAST_NAME).build();
+        PetType type = PetType.builder().name(PET_TYPE).build();
+        pet = Pet.builder().petType(type).owner(owner).name(PET_NAME).id(ID).build();
     }
 
     @Test
@@ -43,8 +48,8 @@ class BaseSDJpaServiceTest {
         Set<Pet> set = new HashSet<>();
         set.add(pet);
         set.add(Pet.builder().owner(pet.getOwner())
-                            .name("Tochka")
-                            .petType(PetType.builder().name("cat").build())
+                            .name(OTHER_PET_NAME)
+                            .petType(PetType.builder().name(OTHER_PET_TYPE).build())
                             .build());
         when(repo.findAll()).thenReturn(set);
 
@@ -58,7 +63,7 @@ class BaseSDJpaServiceTest {
     void findById() {
         when(repo.findById(anyLong())).thenReturn(Optional.of(pet));
 
-        Pet petFound = service.findById(id);
+        Pet petFound = service.findById(ID);
         assertNotNull(petFound);
         assertEquals(pet.getId(), petFound.getId());
         verify(repo).findById(anyLong());
@@ -68,7 +73,7 @@ class BaseSDJpaServiceTest {
     void findByIdNotFound() {
         when(repo.findById(anyLong())).thenReturn(Optional.empty());
 
-        Pet petFound = service.findById(id);
+        Pet petFound = service.findById(ID);
         assertNull(petFound);
         verify(repo).findById(anyLong());
     }
@@ -83,8 +88,8 @@ class BaseSDJpaServiceTest {
 
     @Test
     void deleteById() {
-        service.deleteById(id);
-        verify(repo).deleteById(id);
+        service.deleteById(ID);
+        verify(repo).deleteById(ID);
     }
 
     @Test
@@ -93,5 +98,5 @@ class BaseSDJpaServiceTest {
         verify(repo).delete(pet);
     }
 
-    // ...different scenarios to be added...as map service
+    // EXERCISE ...different scenarios to be added...as map service
 }

@@ -23,7 +23,7 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @InitBinder // TODO ?
+    @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
     }

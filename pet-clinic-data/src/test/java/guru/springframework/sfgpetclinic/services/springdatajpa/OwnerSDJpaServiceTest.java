@@ -18,8 +18,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class OwnerSDJpaServiceTest {
 
-    private final long id = 1L;
-    private final String smith = "Smith";
+    public static final long ID = 1L;
+    public static final String LAST_NAME = "Smith";
 
     @InjectMocks
     OwnerSDJpaService service;
@@ -31,16 +31,16 @@ class OwnerSDJpaServiceTest {
 
     @BeforeEach
     void setUp() {
-        owner = Owner.builder().lastName(smith).id(id).build();
+        owner = Owner.builder().lastName(LAST_NAME).id(ID).build();
     }
 
     @Test
     void findByLastName() {
         when(repo.findByLastName(anyString())).thenReturn(Optional.of(owner));
 
-        Owner found = service.findByLastName(smith);
+        Owner found = service.findByLastName(LAST_NAME);
         assertNotNull(found);
-        assertEquals(smith, found.getLastName());
+        assertEquals(LAST_NAME, found.getLastName());
         verify(repo).findByLastName(anyString());
     }
 }

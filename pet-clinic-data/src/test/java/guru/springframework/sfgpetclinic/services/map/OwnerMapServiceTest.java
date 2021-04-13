@@ -10,27 +10,30 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OwnerMapServiceTest {
 
-    OwnerMapService service;
+    public static final String PET_NAME = "Terry";
+    public static final String PET_TYPE = "dog";
+    public static final long ID = 1L;
+    public static final String LAST_NAME = "Smith";
+    public static final String OTHER_LAST_NAME = "Marinova";
 
-    private final long id = 1L;
-    private final String smith = "Smith";
+    OwnerMapService service;
 
     @BeforeEach
     void setUp() {
         service = new OwnerMapService(new PetMapService(new PetTypeMapService()));
-        service.save(Owner.builder().id(id).lastName(smith).build());
+        service.save(Owner.builder().id(ID).lastName(LAST_NAME).build());
     }
 
     @Test
     void findByLastName() {
-        Owner owner = service.findByLastName(smith);
+        Owner owner = service.findByLastName(LAST_NAME);
         assertNotNull(owner);
-        assertEquals(smith, owner.getLastName());
+        assertEquals(LAST_NAME, owner.getLastName());
     }
 
     @Test
     void findByLastNameNotFound() {
-        assertNull(service.findByLastName("Marinova"));
+        assertNull(service.findByLastName(OTHER_LAST_NAME));
     }
 
     @Test
@@ -41,17 +44,17 @@ class OwnerMapServiceTest {
 
     @Test
     void testSave() {
-        Owner savedOwner = service.save(Owner.builder().lastName(smith).build());
+        Owner savedOwner = service.save(Owner.builder().lastName(LAST_NAME).build());
         assertNotNull(savedOwner);
         assertNotNull(savedOwner.getId());
-        assertEquals(smith, savedOwner.getLastName());
+        assertEquals(LAST_NAME, savedOwner.getLastName());
     }
 
     @Test
     void testSaveOwnerWithPet() {
-        Owner owner = Owner.builder().lastName(smith).build();
-        PetType type = PetType.builder().name("dog").build();
-        owner.getPets().add(Pet.builder().petType(type).owner(owner).name("Terry").build());
+        Owner owner = Owner.builder().lastName(LAST_NAME).build();
+        PetType type = PetType.builder().name(PET_TYPE).build();
+        owner.getPets().add(Pet.builder().petType(type).owner(owner).name(PET_NAME).build());
         Owner savedOwner = service.save(owner);
         assertNotNull(savedOwner);
         assertNotNull(savedOwner.getId());
@@ -61,8 +64,8 @@ class OwnerMapServiceTest {
 
     @Test
     void testSaveOwnerWithPetWithoutPetType() {
-        Owner owner = Owner.builder().lastName(smith).build();
-        owner.getPets().add(Pet.builder().owner(owner).name("Terry").build());
+        Owner owner = Owner.builder().lastName(LAST_NAME).build();
+        owner.getPets().add(Pet.builder().owner(owner).name(PET_NAME).build());
         assertThrows(IllegalArgumentException.class, ()->service.save(owner));
     }
 }

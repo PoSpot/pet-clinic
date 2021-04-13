@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PetMapServiceTest {
 
+    public static final String LAST_NAME = "Smith";
+    public static final String PET_TYPE = "dog";
+    public static final String PET_NAME = "Terry";
     PetMapService service;
 
     @BeforeEach
@@ -19,21 +22,21 @@ class PetMapServiceTest {
 
     @Test
     void testSave() {
-        Owner owner = Owner.builder().lastName("Smith").build();
-        PetType type = PetType.builder().name("dog").build();
-        Pet pet = Pet.builder().petType(type).owner(owner).name("Terry").build();
+        Owner owner = Owner.builder().lastName(LAST_NAME).build();
+        PetType type = PetType.builder().name(PET_TYPE).build();
+        Pet pet = Pet.builder().petType(type).owner(owner).name(PET_NAME).build();
         Pet savedPet = service.save(pet);
         assertNotNull(savedPet);
         assertNotNull(savedPet.getId());
         assertNotNull(savedPet.getPetType());
-        assertEquals("dog", savedPet.getPetType().getName());
+        assertEquals(PET_TYPE, savedPet.getPetType().getName());
         assertNotNull(savedPet.getOwner());
-        assertEquals("Smith", savedPet.getOwner().getLastName());
+        assertEquals(LAST_NAME, savedPet.getOwner().getLastName());
     }
 
     @Test
     void testSaveOwnerWithPetWithoutPetType() {
-        Pet pet = Pet.builder().name("Terry").build();
+        Pet pet = Pet.builder().name(PET_NAME).build();
         assertThrows(IllegalArgumentException.class, ()->service.save(pet));
     }
 }
