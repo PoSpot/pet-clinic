@@ -5,10 +5,7 @@ import guru.springframework.sfgpetclinic.services.OwnerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -42,6 +39,10 @@ class OwnerControllerTest {
 
     @Mock
     Model model;
+
+    @Captor
+    // instead of ArgumentCaptor<List<Owner>> argumentCaptor = ArgumentCaptor.forClass(List.class);
+    ArgumentCaptor<List<Owner>> argumentCaptor;
 
     MockMvc mockMvc;
 
@@ -95,7 +96,6 @@ class OwnerControllerTest {
     void processFindOwnersEmptyStringAllOwners() {
         //given
         when(service.findByLastNameLike("")).thenReturn(new ArrayList<>(owners));
-        ArgumentCaptor<List<Owner>> argumentCaptor = ArgumentCaptor.forClass(List.class);
 
         //when
         String viewName = controller.processFindForm(owner, null, model);
@@ -103,7 +103,7 @@ class OwnerControllerTest {
         assertEquals("owners/ownersList", viewName);
         verify(owner).setLastName("");
         verify(service).findByLastNameLike("");
-        // selections are owners
+        // selections are owners + captors better in verify(), not in when()
         verify(model).addAttribute(eq("selections"), argumentCaptor.capture());
         assertEquals(owners.size(), argumentCaptor.getValue().size());
     }
