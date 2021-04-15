@@ -36,7 +36,7 @@ public class OwnerController {
     }
 
     @GetMapping("/find")
-    public String findOwners(Model model) {
+    public String findOwnersForm(Model model) {
         model.addAttribute("owner", new Owner());
         return "owners/findOwners";
     }
@@ -67,5 +67,18 @@ public class OwnerController {
             // i.e. the current URL (+ the Path var, cos the method is GET)
             return "owners/ownersList";
         }
+    }
+
+    @GetMapping("/new")
+    public String newOwnerForm(Model model){
+        model.addAttribute("owner", new Owner()); // TODO OwnerCommand?
+
+        return "owners/createOrUpdateOwnerForm";
+    }
+
+    @GetMapping("/{id}/update")
+    public String updateOwnerForm(@PathVariable String id, Model model) {
+        model.addAttribute("owner", ownerService.findById(Long.valueOf(id)));
+        return "owners/createOrUpdateOwnerForm";
     }
 }

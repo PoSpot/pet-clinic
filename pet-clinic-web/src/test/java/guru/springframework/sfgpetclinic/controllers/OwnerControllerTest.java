@@ -130,4 +130,28 @@ class OwnerControllerTest {
                 .andExpect(model().attributeHasFieldErrorCode("owner", "lastName", "notFound"))
                 .andExpect(view().name("owners/findOwners"));
     }
+
+    @Test
+    void newOwnerForm() throws Exception {
+        mockMvc.perform(get("/owners/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("owners/createOrUpdateOwnerForm"))
+                .andExpect(model().attributeExists("owner"))
+                .andExpect(model().attribute("owner", hasProperty("new", is(true))));
+
+        verifyNoInteractions(service);
+    }
+
+    @Test
+    void updateOwnerForm() throws Exception {
+        when(service.findById(anyLong())).thenReturn(Owner.builder().id(ID).build());
+
+        mockMvc.perform(get("/owners/" + ID + "/update"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("owners/createOrUpdateOwnerForm"))
+                .andExpect(model().attributeExists("owner"))
+                .andExpect(model().attribute("owner", hasProperty("new", is(false))));
+
+        verify(service).findById(ID);
+    }
 }
