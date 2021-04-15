@@ -93,6 +93,7 @@ class OwnerControllerTest {
 
     @Test /*Unable to send owner-mock with perform in order to verify(owner).setLastName("") =>
     so call the method directly*/
+    // EXERCISE maybe u can: testPostNewRecipeForm in recipes
     void processFindOwnersEmptyStringAllOwners() {
         //given
         when(service.findByLastNameLike("")).thenReturn(new ArrayList<>(owners));
