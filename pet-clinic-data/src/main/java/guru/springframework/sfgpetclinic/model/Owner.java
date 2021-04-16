@@ -34,4 +34,10 @@ public class Owner extends Person {
         this.telephone = telephone;
         this.pets = Objects.requireNonNullElseGet(pets, HashSet::new);
     }
+
+    public Owner addPet(Pet pet){
+        pet.setOwner(this);
+        this.pets.add(pet);
+        return this;
+    }
 }
