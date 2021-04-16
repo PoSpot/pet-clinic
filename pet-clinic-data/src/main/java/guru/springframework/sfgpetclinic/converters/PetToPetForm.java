@@ -30,7 +30,9 @@ public class PetToPetForm implements Converter<Pet, PetForm> {
         form.setId(source.getId());
         form.setName(source.getName());
         form.setPetType(petTypeConverter.convert(source.getPetType()));
-        form.setOwnerId(source.getOwner().getId());
+        if (source.getOwner() != null) {
+            form.setOwnerId(source.getOwner().getId());
+        }
         form.setBirthDate(source.getBirthDate());
 
         if (source.getVisits() != null){
