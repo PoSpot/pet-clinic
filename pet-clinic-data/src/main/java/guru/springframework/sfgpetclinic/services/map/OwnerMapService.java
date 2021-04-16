@@ -1,5 +1,6 @@
 package guru.springframework.sfgpetclinic.services.map;
 
+import guru.springframework.sfgpetclinic.forms.OwnerForm;
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import guru.springframework.sfgpetclinic.services.PetService;
@@ -18,10 +19,19 @@ public class OwnerMapService extends BaseMapService<Owner> implements OwnerServi
         this.petService = petService;
     }
 
-    // EXERCISE
     @Override
     public List<Owner> findByLastNameLike(String lastName) {
-        throw new RuntimeException("Not implemented yet!");
+        throw new RuntimeException("Not implemented!");
+    }
+
+    @Override
+    public OwnerForm saveRecipeCommand(OwnerForm owner) {
+        throw new RuntimeException("Not implemented!");
+    }
+
+    @Override
+    public OwnerForm findFormById(Long l) {
+        throw new RuntimeException("Not implemented!");
     }
 
     @Override

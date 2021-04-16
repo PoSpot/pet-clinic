@@ -1,11 +1,15 @@
 package guru.springframework.sfgpetclinic.services.springdatajpa;
 
+import guru.springframework.sfgpetclinic.converters.OwnerFormToOwner;
+import guru.springframework.sfgpetclinic.converters.OwnerToOwnerForm;
+import guru.springframework.sfgpetclinic.forms.OwnerForm;
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.repositories.OwnerRepository;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,14 +18,36 @@ import java.util.List;
 @Profile("springdatajpa")
 public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerService {
 
-    // the example has a repo field here? KEEPINMIND (+ all other services)
-    public OwnerSDJpaService(OwnerRepository ownerRepo) {
+
+    private final OwnerFormToOwner ownerFormToOwner;
+    private final OwnerToOwnerForm ownerToOwnerForm;
+
+    // the example has a repo field here? KIM (+ all other services)
+    public OwnerSDJpaService(OwnerRepository ownerRepo, OwnerFormToOwner ownerFormToOwner, OwnerToOwnerForm ownerToOwnerForm) {
         super(ownerRepo);
+        this.ownerFormToOwner = ownerFormToOwner;
+        this.ownerToOwnerForm = ownerToOwnerForm;
         log.info("Creating Owner SD JPA Service");
     }
 
     @Override
     public List<Owner> findByLastNameLike(String lastName) {
         return ((OwnerRepository) crudRepo).findByLastNameLike("%" + lastName + "%");
+    }
+
+    @Transactional
+    @Override
+    public OwnerForm saveRecipeCommand(OwnerForm form) {
+        Owner detachedOwner = ownerFormToOwner.convert(form);
+
+        Owner savedOwner = ((OwnerRepository) crudRepo).save(detachedOwner);
+        log.debug("Saved OwnerId:" + savedOwner.getId());
+        return ownerToOwnerForm.convert(savedOwner);
+    }
+
+    @Transactional
+    @Override
+    public OwnerForm findFormById(Long l) {
+        return ownerToOwnerForm.convert(findById(l));
     }
 }
