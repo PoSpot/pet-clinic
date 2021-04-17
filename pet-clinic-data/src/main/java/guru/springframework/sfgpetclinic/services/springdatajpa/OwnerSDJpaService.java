@@ -36,8 +36,8 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
     }
 
     @Transactional
-    @Override
-    public OwnerForm saveRecipeCommand(OwnerForm form) {
+    @Override // TODO test me
+    public OwnerForm saveOwnerForm(OwnerForm form) {
         Owner detachedOwner = ownerFormToOwner.convert(form);
 
         Owner savedOwner = ((OwnerRepository) crudRepo).save(detachedOwner);
@@ -46,8 +46,8 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
     }
 
     @Transactional
-    @Override
-    public OwnerForm findFormById(Long l) {
+    @Override // TODO test me
+    public OwnerForm findOwnerFormById(Long l) {
         return ownerToOwnerForm.convert(findById(l));
     }
 }
