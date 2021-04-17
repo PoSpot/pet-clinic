@@ -9,7 +9,7 @@ public interface OwnerService extends CrudService<Owner, Long> {
 
     List<Owner> findByLastNameLike(String lastName);
 
-    OwnerForm saveRecipeCommand(OwnerForm owner);
+    OwnerForm saveOwnerForm(OwnerForm owner);
 
-    OwnerForm findFormById(Long l);
+    OwnerForm findOwnerFormById(Long l);
 }

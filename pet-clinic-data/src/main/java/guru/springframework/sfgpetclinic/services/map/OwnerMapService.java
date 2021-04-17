@@ -25,12 +25,12 @@ public class OwnerMapService extends BaseMapService<Owner> implements OwnerServi
     }
 
     @Override
-    public OwnerForm saveRecipeCommand(OwnerForm owner) {
+    public OwnerForm saveOwnerForm(OwnerForm owner) {
         throw new RuntimeException("Not implemented!");
     }
 
     @Override
-    public OwnerForm findFormById(Long l) {
+    public OwnerForm findOwnerFormById(Long l) {
         throw new RuntimeException("Not implemented!");
     }
 

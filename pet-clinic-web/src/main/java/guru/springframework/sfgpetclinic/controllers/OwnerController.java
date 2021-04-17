@@ -1,5 +1,6 @@
 package guru.springframework.sfgpetclinic.controllers;
 
+import guru.springframework.sfgpetclinic.forms.OwnerForm;
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import org.springframework.stereotype.Controller;
@@ -74,35 +75,35 @@ public class OwnerController {
 
     @GetMapping("/new")
     public String initCreationForm(Model model){
-        model.addAttribute("owner", new Owner()); // EXERCISE SOON OwnerCommand in these 4 (cre/update), after video
+        model.addAttribute("owner", new OwnerForm());
 
         return VIEW_OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
     }
 
     @PostMapping("/new")
-    public String processCreationForm(@Valid Owner owner, BindingResult result){
+    public String processCreationForm(@Valid OwnerForm ownerForm, BindingResult result){
         if (result.hasErrors()) {
             return VIEW_OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
         } else {
-            Owner savedOwner = ownerService.save(owner);
+            OwnerForm savedOwner = ownerService.saveOwnerForm(ownerForm);
             return "redirect:/owners/" + savedOwner.getId();
         }
     }
 
     @GetMapping("/{id}/edit")
     public String initUpdateForm(@PathVariable Long id, Model model) {
-        model.addAttribute("owner", ownerService.findById(id));
+        model.addAttribute("owner", ownerService.findOwnerFormById(id));
         return VIEW_OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
     }
 
     @PostMapping("/{id}/edit")
-    public String processUpdateForm(@Valid Owner owner, BindingResult result, @PathVariable Long id){
+    public String processUpdateForm(@Valid OwnerForm ownerForm, BindingResult result, @PathVariable Long id){
         if (result.hasErrors()) {
             return VIEW_OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
         } else {
-            owner.setId(id);
-            Owner savedOwner = ownerService.save(owner);
-            return "redirect:/owners/" + savedOwner.getId();
+            ownerForm.setId(id);
+            OwnerForm savedOwnerForm = ownerService.saveOwnerForm(ownerForm);
+            return "redirect:/owners/" + savedOwnerForm.getId();
         }
     }
 }
