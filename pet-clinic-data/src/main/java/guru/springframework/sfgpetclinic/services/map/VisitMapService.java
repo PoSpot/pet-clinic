@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Profile({"default", "map"})
 public class VisitMapService extends BaseMapService<Visit> implements VisitService {
 
-    // KEEPINMIND John's impl below, but not sure why we need those.
+    // KIM John's impl below, but not sure why we need those.
     // (fields: date, descr, pet will be checked later in validation, I guess).
     // same for the fields' fields.
 /*        @Override

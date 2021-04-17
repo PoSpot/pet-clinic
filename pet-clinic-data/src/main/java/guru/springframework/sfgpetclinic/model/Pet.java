@@ -24,7 +24,7 @@ public class Pet extends BaseEntity {
     private PetType petType;
 
     @ManyToOne
-// KEEPINMIND    @JoinColumn(name = "owner_id") I believe it's not needed, removed
+    // KIM @JoinColumn(name = "owner_id") I believe it's not needed, removed
     private Owner owner;
     private LocalDate birthDate;
 

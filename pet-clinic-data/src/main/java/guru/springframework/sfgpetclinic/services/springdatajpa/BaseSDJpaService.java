@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Service  You should not have @Component on top of an abstract class (abstr-> not to be instantiated) KEEPINMIND
+//@Service  You should not have @Component on top of an abstract class (abstr-> not to be instantiated) KIM
 public abstract class BaseSDJpaService<T extends BaseEntity> implements CrudService<T, Long> {
 
     protected final CrudRepository<T, Long> crudRepo;

@@ -17,7 +17,7 @@ public class PetToPetForm implements Converter<Pet, PetForm> {
     }
 
     @Synchronized // Converter intfc: Implementations of this interface are thread-safe and can be shared. (?)
-    // EXERCISE Is this some Spring magic, so we don't need @Synchronized
+    // EXERCISE Is this some Spring magic, so we don't need @Synchronized?
     @Nullable
     @Override
     public PetForm convert(Pet source) {

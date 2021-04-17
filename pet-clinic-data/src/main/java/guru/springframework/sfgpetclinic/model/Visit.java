@@ -19,7 +19,7 @@ public class Visit extends BaseEntity {
     private String description;
 
     @ManyToOne
-// KEEPINMIND    @JoinColumn(name = "pet_id") Same - I believe it's not needed
+    // KIM @JoinColumn(name = "pet_id") Same - I believe it's not needed
     private Pet pet;
 
     @Builder
