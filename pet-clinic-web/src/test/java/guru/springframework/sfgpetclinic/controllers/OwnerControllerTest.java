@@ -75,7 +75,7 @@ class OwnerControllerTest {
 
         when(service.findById(anyLong())).thenReturn(Owner.builder().id(ID).build());
 
-        mockMvc.perform(get("/owners/"+ID))
+        mockMvc.perform(get("/owners/" + ID))
                 .andExpect(status().isOk())
                 .andExpect(view().name(OwnerController.VIEW_OWNERS_OWNER_DETAILS))
                 .andExpect(model().attribute("owner", hasProperty("id", is(ID))));
@@ -97,7 +97,7 @@ class OwnerControllerTest {
 
     @Test /*Unable to send owner-mock with perform in order to verify(owner).setLastName("") =>
     so call the method directly*/
-    // EXERCISE maybe u can: testPostNewRecipeForm in recipes
+        // EXERCISE maybe u can: testPostNewRecipeForm in recipes
     void processFindOwnersEmptyStringAllOwners() {
         //given
         when(service.findByLastNameLike("")).thenReturn(new ArrayList<>(owners));
@@ -119,10 +119,10 @@ class OwnerControllerTest {
         when(service.findByLastNameLike(anyString())).thenReturn(List.of(Owner.builder().id(ID).build()));
 
         mockMvc.perform(get("/owners"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/owners/"+ID));
-                // Test a method that doesn't set attrs + u check attr -> NOK (this line checks ctrlr @ModelAttr params)
-                // .andExpect(model().attributeExists("owner"));
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/owners/" + ID));
+        // Test a method that doesn't set attrs + u check attr -> NOK (this line checks ctrlr @ModelAttr params)
+        // .andExpect(model().attributeExists("owner"));
     }
 
     @Test
@@ -148,24 +148,24 @@ class OwnerControllerTest {
         verifyNoInteractions(service);
     }
 
-    @Test // TODO Negative scenario later - again Stoyanchev saveSpecialWithErrors()
+    @Test
     void processCreationForm() throws Exception {
         OwnerForm ownerForm = new OwnerForm();
         ownerForm.setId(ID);
         when(service.saveOwnerForm(any())).thenReturn(ownerForm);
 
-        mockMvc.perform(post("/owners/new"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/owners/" + ID));
-                // Test a method that doesn't set attrs + u check attr -> NOK (this line checks ctrlr @ModelAttr params)
-                //.andExpect(model().attributeExists("ownerForm"));//"owner"));
-                // HERE OR EXTRa CTRLR PARAM!? (and it's about the type 'OwnerForm'(not the name) of ctrlr param
-                // (i.e. '@Valid OwnerForm owner' param won't work)...(?))
+        mockMvc.perform(post("/owners/new")
+                .param("firstName", "Andy")
+                .param("city", "Sofia"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/owners/" + ID));
+        // Test a method that doesn't set attrs + u check attr -> NOK (this line checks ctrlr @ModelAttr params)
+        //.andExpect(model().attributeExists("ownerForm"));//"owner"));
+        // HERE OR EXTRa CTRLR PARAM!? (and it's about the type 'OwnerForm'(not the name) of ctrlr param
+        // (i.e. '@Valid OwnerForm owner' param won't work)...(?))
 
         verify(service).saveOwnerForm(any());
     }
-
-//    TODO add nicer test (Recipe ctrlr test:testPostNewRecipeForm) + see Stoyanchev tests!
 
     @Test
     void initUpdateForm() throws Exception {
@@ -182,17 +182,21 @@ class OwnerControllerTest {
         verify(service).findOwnerFormById(ID);
     }
 
-    @Test // TODO Negative scenario later
+    @Test
+        // TODO Negative scenarios on the 2 posts, when validation added: see
+        //  https://github.com/spring-projects/spring-framework/blob/master/spring-test/src/test/java/org/springframework/test/web/servlet/samples/standalone/RedirectTests.java
     void processUpdateForm() throws Exception {
         OwnerForm ownerForm = new OwnerForm();
         ownerForm.setId(ID);
         when(service.saveOwnerForm(any())).thenReturn(ownerForm);
 
-        mockMvc.perform(post("/owners/" + ID + "/edit"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/owners/" + ID));
-                // Test a method that doesn't set attrs + u check attr -> NOK (this line checks ctrlr @ModelAttr params)
-                // .andExpect(model().attributeExists("owner"));
+        mockMvc.perform(post("/owners/" + ID + "/edit")
+                .param("address", "")
+                .param("city", "Sofia"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/owners/" + ID));
+        // Test a method that doesn't set attrs + u check attr -> NOK (this line checks ctrlr @ModelAttr params)
+        // .andExpect(model().attributeExists("owner"));
 
         verify(service).saveOwnerForm(any());
     }
