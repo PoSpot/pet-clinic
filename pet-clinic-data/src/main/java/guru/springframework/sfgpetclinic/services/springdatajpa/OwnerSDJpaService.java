@@ -36,7 +36,7 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
     }
 
     @Transactional
-    @Override // TODO test me
+    @Override
     public OwnerForm saveOwnerForm(OwnerForm form) {
         Owner detachedOwner = ownerFormToOwner.convert(form);
 
@@ -46,7 +46,7 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
     }
 
     @Transactional
-    @Override // TODO test me
+    @Override
     public OwnerForm findOwnerFormById(Long l) {
         return ownerToOwnerForm.convert(findById(l));
     }

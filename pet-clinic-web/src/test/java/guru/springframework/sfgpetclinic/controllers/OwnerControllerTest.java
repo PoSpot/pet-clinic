@@ -160,9 +160,9 @@ class OwnerControllerTest {
                 .andExpect(status().isFound())
                 .andExpect(redirectedUrl("/owners/" + ID));
         // Test a method that doesn't set attrs + u check attr -> NOK (this line checks ctrlr @ModelAttr params)
-        //.andExpect(model().attributeExists("ownerForm"));//"owner"));
-        // HERE OR EXTRa CTRLR PARAM!? (and it's about the type 'OwnerForm'(not the name) of ctrlr param
-        // (i.e. '@Valid OwnerForm owner' param won't work)...(?))
+        //.andExpect(model().attributeExists("owner"));
+        // and it's about the type 'OwnerForm' of ctrlr param, not the name
+        // (i.e. '@Valid OwnerForm owner' param won't work either...
 
         verify(service).saveOwnerForm(any());
     }

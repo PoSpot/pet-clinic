@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -55,7 +57,7 @@ class BaseSDJpaServiceTest {
 
         Set<Pet> all = service.findAll();
         assertNotNull(all);
-        assertEquals(2, all.size());
+        assertThat(all, hasSize(2));
         verify(repo).findAll();
     }
 
@@ -97,6 +99,4 @@ class BaseSDJpaServiceTest {
         service.delete(pet);
         verify(repo).delete(pet);
     }
-
-    // EXERCISE ...different scenarios to be added...as map service
 }
