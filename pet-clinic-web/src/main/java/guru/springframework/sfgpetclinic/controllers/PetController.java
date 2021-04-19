@@ -84,32 +84,4 @@ public class PetController {
         }
     }
 
-    // currently no issues with new/update
-
-    // types and owner are avail.
-
-    // maybe no setAllowedFields, cos we have one hidden id in html (we have one for owner above)
-
-    // FIXED EL1008E: Property or field 'owner' cannot be found on object of type 'guru.springframework.sfgpetclinic.forms.PetForm' - maybe not public or not valid?
-    // FIXED Exception evaluating SpringEL expression: "pet.owner?.firstName + ' ' + pet.owner?.lastName" (template: "pets/createOrUpdatePetForm.html" - line 16, col 17)
-    // 'owner' in model cos not in my form + it reads from ctrlr's method: @ModelAttribute("owner") findOwner
-
-    // Invalid property 'type' of bean class [guru.springframework.sfgpetclinic.forms.PetForm]:
-    // Bean property 'type' is not readable or has an invalid getter method: Does the return type of the getter match the parameter type of the setter?
-    // -> pettype in html
-
-    // EL1012E: Cannot index into a null value
-    // Exception evaluating SpringEL expression: "pet['new']" (template: "pets/createOrUpdatePetForm.html" - line 7, col 15) ->
-
-//    EL1007E: Property or field 'id' cannot be found on null
-// but is there =1 ->
-    // again wrong urls -> OK
-
-    //  Neither BindingResult nor plain target object for bean name 'pet' available as request attribute
-    // Exception evaluating SpringEL expression: "!#fields.hasErrors(name)" (template: "fragments/inputField" - line 5, col 12)
-
-    // with 'pet' attr name -> would populate the form but is null on submit??
-
-    // pfu renamed model attr -> petForm, but all attr are still in red in html -> Maybe invalidate cache fixed it
-
 }
