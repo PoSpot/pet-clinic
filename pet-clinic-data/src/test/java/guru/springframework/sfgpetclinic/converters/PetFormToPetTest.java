@@ -1,8 +1,8 @@
 package guru.springframework.sfgpetclinic.converters;
 
 import guru.springframework.sfgpetclinic.forms.PetForm;
-import guru.springframework.sfgpetclinic.forms.PetTypeForm;
 import guru.springframework.sfgpetclinic.model.Pet;
+import guru.springframework.sfgpetclinic.model.PetType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +23,8 @@ class PetFormToPetTest {
     public static final String ADDRESS = "fwo a owq 12";
     public static final String CITY = "Sofia";
     public static final String TELEPHONE = "4534685";
+
+    PetType petType = PetType.builder().id(PET_TYPE_ID).name("donkey").build();
 
     PetFormToPet converter;
 
@@ -47,9 +49,6 @@ class PetFormToPetTest {
         PetForm form = new PetForm();
         form.setId(ID);
         form.setName(NAME);
-        PetTypeForm petType = new PetTypeForm();
-        petType.setName("donkey");
-        petType.setId(PET_TYPE_ID);
         form.setPetType(petType);
         form.setOwnerId(OWNER_ID);
         LocalDate date = LocalDate.now();
@@ -63,8 +62,7 @@ class PetFormToPetTest {
         assertNotNull(pet);
         assertEquals(ID, pet.getId());
         assertEquals(NAME, pet.getName());
-        assertEquals("donkey", pet.getPetType().getName());
-        assertEquals(PET_TYPE_ID, pet.getPetType().getId());
+        assertEquals(petType, pet.getPetType());
         assertEquals(OWNER_ID, pet.getOwner().getId());
         assertEquals(date, pet.getBirthDate());
         assertNotNull(pet.getVisits());

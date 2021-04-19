@@ -40,7 +40,7 @@ public class PetFormToPet implements Converter<PetForm, Pet> {
 
         final Pet pet = Pet.builder().id(source.getId())
                 .name(source.getName())
-                .petType(petTypeConverter.convert(source.getPetType()))
+                .petType(source.getPetType())
                 .birthDate(source.getBirthDate())
                 .visits(visits)
                 .build();
