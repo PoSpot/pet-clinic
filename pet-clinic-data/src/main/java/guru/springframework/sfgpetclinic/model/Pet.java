@@ -4,11 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -26,6 +26,8 @@ public class Pet extends BaseEntity {
     @ManyToOne
     // KIM @JoinColumn(name = "owner_id") I believe it's not needed, removed
     private Owner owner;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // TODO keep these here and in form?
     private LocalDate birthDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
@@ -38,6 +40,10 @@ public class Pet extends BaseEntity {
         this.petType = petType;
         this.owner = owner;
         this.birthDate = birthDate;
-        this.visits = Objects.requireNonNullElseGet(visits, HashSet::new);
+
+        // don't overwrite if param is null, cos it was init-ed above in field
+        if (visits != null) {
+            this.visits = visits;
+        }
     }
 }

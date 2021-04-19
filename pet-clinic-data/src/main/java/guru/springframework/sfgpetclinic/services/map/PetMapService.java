@@ -1,5 +1,6 @@
 package guru.springframework.sfgpetclinic.services.map;
 
+import guru.springframework.sfgpetclinic.forms.PetForm;
 import guru.springframework.sfgpetclinic.model.Pet;
 import guru.springframework.sfgpetclinic.services.PetService;
 import guru.springframework.sfgpetclinic.services.PetTypeService;
@@ -29,5 +30,15 @@ public class PetMapService extends BaseMapService<Pet> implements PetService {
         }
 
         return super.save(pet);
+    }
+
+    @Override
+    public PetForm findPetFormById(Long id) {
+        throw new RuntimeException("Not implemented!");
+    }
+
+    @Override
+    public PetForm savePetForm(PetForm form) {
+        throw new RuntimeException("Not implemented!");
     }
 }

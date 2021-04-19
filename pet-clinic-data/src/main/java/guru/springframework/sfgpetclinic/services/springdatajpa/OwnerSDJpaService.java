@@ -40,7 +40,7 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
     public OwnerForm saveOwnerForm(OwnerForm form) {
         Owner detachedOwner = ownerFormToOwner.convert(form);
 
-        Owner savedOwner = ((OwnerRepository) crudRepo).save(detachedOwner);
+        Owner savedOwner = crudRepo.save(detachedOwner);
         log.debug("Saved OwnerId:" + savedOwner.getId());
         return ownerToOwnerForm.convert(savedOwner);
     }

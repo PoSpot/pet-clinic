@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -24,6 +23,10 @@ public class Vet extends Person {
     @Builder
     public Vet(Long id, String firstName, String lastName, Set<Speciality> specialities) {
         super(id, firstName, lastName);
-        this.specialities = Objects.requireNonNullElseGet(specialities, HashSet::new);
+
+        // don't overwrite if param is null, cos it was init-ed above in field
+        if (specialities != null) {
+            this.specialities = specialities;
+        }
     }
 }
