@@ -38,7 +38,7 @@ class OwnerSDJpaServiceTest {
     OwnerRepository repo;
 
     @Mock
-            // easy to not mock, but dont brake here
+    // very questionable should these be mocked..to light, better use real, as h2 db
     OwnerToOwnerForm ownerToOwnerForm;
 
     @Mock
@@ -68,6 +68,7 @@ class OwnerSDJpaServiceTest {
     }
 
     @Test
+    // A strange test, not much to test..could be unmocked & assert the saved owner props.
     void saveOwnerForm() {
         //given
         OwnerForm ownerForm = new OwnerForm();
