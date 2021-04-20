@@ -7,6 +7,9 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Component
 public class PetToPetForm implements Converter<Pet, PetForm> {
 
@@ -26,18 +29,20 @@ public class PetToPetForm implements Converter<Pet, PetForm> {
             return null;
         }
 
-        final PetForm form = new PetForm();
-        form.setId(source.getId());
-        form.setName(source.getName());
-        form.setPetType(source.getPetType());
-        if (source.getOwner() != null) {
-            form.setOwnerId(source.getOwner().getId());
-        }
-        form.setBirthDate(source.getBirthDate());
-
+        final Set<Long> visits = new HashSet<>();
         if (source.getVisits() != null){
             source.getVisits()
-                    .forEach(visit -> form.getVisitIds().add(visit.getId()));
+                    .forEach(visit -> visits.add(visit.getId()));
+        }
+        final PetForm form = PetForm.builder().id(source.getId())
+                .name(source.getName())
+                .petType(source.getPetType())
+                .birthDate(source.getBirthDate())
+                .visitIds(visits)
+                .build();
+
+        if (source.getOwner() != null) {
+            form.setOwnerId(source.getOwner().getId());
         }
 
         return form;

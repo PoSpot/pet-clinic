@@ -150,8 +150,7 @@ class OwnerControllerTest {
 
     @Test
     void processCreationForm() throws Exception {
-        OwnerForm ownerForm = new OwnerForm();
-        ownerForm.setId(ID);
+        OwnerForm ownerForm = OwnerForm.builder().id(ID).build();
         when(service.saveOwnerForm(any())).thenReturn(ownerForm);
 
         mockMvc.perform(post("/owners/new")
@@ -169,8 +168,7 @@ class OwnerControllerTest {
 
     @Test
     void initUpdateForm() throws Exception {
-        OwnerForm ownerForm = new OwnerForm();
-        ownerForm.setId(ID);
+        OwnerForm ownerForm = OwnerForm.builder().id(ID).build();
         when(service.findOwnerFormById(anyLong())).thenReturn(ownerForm);
 
         mockMvc.perform(get("/owners/" + ID + "/edit"))
@@ -186,8 +184,7 @@ class OwnerControllerTest {
         // TODO Negative scenarios on the 2 posts, when validation added: see
         //  https://github.com/spring-projects/spring-framework/blob/master/spring-test/src/test/java/org/springframework/test/web/servlet/samples/standalone/RedirectTests.java
     void processUpdateForm() throws Exception {
-        OwnerForm ownerForm = new OwnerForm();
-        ownerForm.setId(ID);
+        OwnerForm ownerForm = OwnerForm.builder().id(ID).build();
         when(service.saveOwnerForm(any())).thenReturn(ownerForm);
 
         mockMvc.perform(post("/owners/" + ID + "/edit")

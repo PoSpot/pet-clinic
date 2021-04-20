@@ -1,6 +1,7 @@
 package guru.springframework.sfgpetclinic.forms;
 
 import guru.springframework.sfgpetclinic.model.PetType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 public class PetForm {
 

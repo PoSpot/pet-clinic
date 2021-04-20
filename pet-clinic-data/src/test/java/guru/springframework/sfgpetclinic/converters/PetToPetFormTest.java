@@ -47,27 +47,22 @@ class PetToPetFormTest {
     @Test
     public void convert() {
         //given
-        Pet pet = new Pet();
-        pet.setId(ID);
-        pet.setName(NAME);
-        PetType petType = new PetType();
-        petType.setName("donkey");
-        petType.setId(PET_TYPE_ID);
-        pet.setPetType(petType);
-        pet.setOwner(Owner.builder().id(OWNER_ID).build());
         LocalDate date = LocalDate.now();
-        pet.setBirthDate(date);
-        pet.setVisits(Set.of(Visit.builder().id(1L).build(), Visit.builder().id(2L).build(), Visit.builder().id(3L).build()));
+        PetType petType = PetType.builder().id(PET_TYPE_ID).name("donkey").build();
+        Set<Visit> visits = Set.of(Visit.builder().id(1L).build(), Visit.builder().id(2L).build(), Visit.builder().id(3L).build());
 
         //when
-        PetForm form = converter.convert(pet);
+        PetForm form = converter.convert(Pet.builder().id(ID).name(NAME)
+                                                        .petType(petType)
+                                                        .owner(Owner.builder().id(OWNER_ID).build())
+                                                        .birthDate(date)
+                                                        .visits(visits).build());
 
         //then
         assertNotNull(form);
         assertEquals(ID, form.getId());
         assertEquals(NAME, form.getName());
-        assertEquals("donkey", form.getPetType().getName());
-        assertEquals(PET_TYPE_ID, form.getPetType().getId());
+        assertEquals(petType, form.getPetType());
         assertEquals(OWNER_ID, form.getOwnerId());
         assertEquals(date, form.getBirthDate());
         assertNotNull(form.getVisitIds());

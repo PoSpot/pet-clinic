@@ -1,11 +1,15 @@
 package guru.springframework.sfgpetclinic.converters;
 
 import guru.springframework.sfgpetclinic.forms.OwnerForm;
+import guru.springframework.sfgpetclinic.forms.PetForm;
 import guru.springframework.sfgpetclinic.model.Owner;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class OwnerToOwnerForm implements Converter<Owner, OwnerForm> {
@@ -25,19 +29,19 @@ public class OwnerToOwnerForm implements Converter<Owner, OwnerForm> {
             return null;
         }
 
-        final OwnerForm form = new OwnerForm();
-        form.setId(source.getId());
-        form.setFirstName(source.getFirstName());
-        form.setLastName(source.getLastName());
-        form.setAddress(source.getAddress());
-        form.setCity(source.getCity());
-        form.setTelephone(source.getTelephone());
-
+        Set<PetForm> pets = new HashSet<>();
         if (source.getPets() != null){
             source.getPets()
-                    .forEach(pet -> form.getPets().add(petConverter.convert(pet)));
+                    .forEach(pet -> pets.add(petConverter.convert(pet)));
         }
 
-        return form;
+        return OwnerForm.builder().id(source.getId())
+                .firstName(source.getFirstName())
+                .lastName(source.getLastName())
+                .address(source.getAddress())
+                .city(source.getCity())
+                .telephone(source.getTelephone())
+                .pets(pets)
+                .build();
     }
 }

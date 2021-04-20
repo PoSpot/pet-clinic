@@ -45,22 +45,19 @@ class OwnerToOwnerFormTest {
     public void convert() {
 
         //given
-        Owner owner = new Owner();
-        owner.setId(ID);
-        owner.setFirstName(FIRST_NAME);
-        owner.setLastName(LAST_NAME);
-        owner.setAddress(ADDRESS);
-        owner.setCity(CITY);
-        owner.setTelephone(TELEPHONE);
-
         Set<Pet> pets = new HashSet<>();
-        Pet pet = new Pet();
-        pet.setId(PET_ID1);
+        Pet pet = Pet.builder().id(PET_ID1).build();
         pets.add(pet);
-        Pet pet2 = new Pet();
-        pet2.setId(PET_ID2);
+        Pet pet2 = Pet.builder().id(PET_ID2).build();
         pets.add(pet2);
-        owner.setPets(pets);
+
+        Owner owner = Owner.builder().id(ID)
+                .firstName(FIRST_NAME)
+                .lastName(LAST_NAME)
+                .address(ADDRESS)
+                .city(CITY)
+                .telephone(TELEPHONE)
+                .pets(pets).build();
 
         //when
         OwnerForm form = converter.convert(owner);

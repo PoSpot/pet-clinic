@@ -25,12 +25,11 @@ public class VisitToVisitForm implements Converter<Visit, VisitForm> {
             return null;
         }
 
-        final VisitForm form = new VisitForm();
-        form.setId(source.getId());
-        form.setDate(source.getDate());
-        form.setDescription(source.getDescription());
-        form.setPet(petConverter.convert(source.getPet()));
-
-        return form;
+        return VisitForm.builder()
+                .id(source.getId())
+                .date(source.getDate())
+                .description(source.getDescription())
+                .pet(petConverter.convert(source.getPet()))
+                .build();
     }
 }

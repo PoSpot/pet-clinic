@@ -19,10 +19,9 @@ public class PetTypeToPetTypeForm implements Converter<PetType, PetTypeForm> {
             return null;
         }
 
-        final PetTypeForm form = new PetTypeForm();
-        form.setId(source.getId());
-        form.setName(source.getName());
-
-        return form;
+        return PetTypeForm.builder()
+                .id(source.getId())
+                .name(source.getName())
+                .build();
     }
 }

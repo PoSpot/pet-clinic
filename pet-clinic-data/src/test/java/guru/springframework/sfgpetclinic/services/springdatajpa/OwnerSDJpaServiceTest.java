@@ -71,8 +71,7 @@ class OwnerSDJpaServiceTest {
     // A strange test, not much to test..could be unmocked & assert the saved owner props.
     void saveOwnerForm() {
         //given
-        OwnerForm ownerForm = new OwnerForm();
-        ownerForm.setId(ID);
+        OwnerForm ownerForm = OwnerForm.builder().id(ID).build();
         given(ownerFormToOwner.convert(ownerForm)).willReturn(owner);
         given(repo.save(owner)).willReturn(owner);
         given(ownerToOwnerForm.convert(owner)).willReturn(ownerForm);
@@ -95,8 +94,7 @@ class OwnerSDJpaServiceTest {
         //given
         when(repo.findById(anyLong())).thenReturn(Optional.of(owner));
 
-        OwnerForm ownerForm = new OwnerForm();
-        ownerForm.setId(ID);
+        OwnerForm ownerForm = OwnerForm.builder().id(ID).build();
 
         when(ownerToOwnerForm.convert(any())).thenReturn(ownerForm);
 

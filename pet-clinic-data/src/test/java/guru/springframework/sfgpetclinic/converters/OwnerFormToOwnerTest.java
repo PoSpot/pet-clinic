@@ -44,18 +44,8 @@ class OwnerFormToOwnerTest {
     @Test
     public void convert() {
         //given
-        OwnerForm form = new OwnerForm();
-        form.setId(ID);
-        form.setFirstName(FIRST_NAME);
-        form.setLastName(LAST_NAME);
-        form.setAddress(ADDRESS);
-        form.setCity(CITY);
-        form.setTelephone(TELEPHONE);
-
         Set<PetForm> pets = new HashSet<>();
-
-        PetForm pet = new PetForm();
-        pet.setId(PET_ID1);
+        pets.add(PetForm.builder().id(PET_ID1).build());
         // Overtesting, these are not even very assertable (cos Set)
 //        pet.setName(PETTY);
 //        PetTypeForm petType = new PetTypeForm();
@@ -66,11 +56,15 @@ class OwnerFormToOwnerTest {
 //        pet.setBirthDate(LocalDate.now());
 //        Set<Long> visits = Set.of(1L, 2L, 3L, 4L);
 //        pet.setVisitIds(visits);
-        pets.add(pet);
-        PetForm pet2 = new PetForm();
-        pet2.setId(PET_ID2);
-        pets.add(pet2);
-        form.setPets(pets);
+        pets.add(PetForm.builder().id(PET_ID2).build());
+
+        OwnerForm form = OwnerForm.builder().id(ID)
+                                .firstName(FIRST_NAME)
+                                .lastName(LAST_NAME)
+                                .address(ADDRESS)
+                                .city(CITY)
+                                .telephone(TELEPHONE)
+                                .pets(pets).build();
 
         //when
         Owner owner = converter.convert(form);

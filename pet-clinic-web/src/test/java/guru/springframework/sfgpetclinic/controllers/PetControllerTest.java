@@ -76,10 +76,7 @@ class PetControllerTest {
 
     @Test
     void processCreationForm() throws Exception {
-        PetForm form = new PetForm();
-        form.setId(2L);
-        form.setOwnerId(1L);
-        when(petService.savePetForm(any())).thenReturn(form);
+        when(petService.savePetForm(any())).thenReturn(PetForm.builder().id(2L).ownerId(1L).build());
 
         mockMvc.perform(post("/owners/1/pets/new"))
                 .andExpect(status().isFound())
@@ -91,9 +88,7 @@ class PetControllerTest {
     @Test
     void initUpdateForm() throws Exception {
 
-        PetForm form = new PetForm();
-        form.setId(2L);
-        when(petService.findPetFormById(anyLong())).thenReturn(form);
+        when(petService.findPetFormById(anyLong())).thenReturn(PetForm.builder().id(2L).ownerId(1L).build());
 
         mockMvc.perform(get("/owners/1/pets/2/edit"))
                 .andExpect(status().isOk())
@@ -105,10 +100,7 @@ class PetControllerTest {
     @Test
     void processUpdateForm() throws Exception {
 
-        PetForm form = new PetForm();
-        form.setId(2L);
-        form.setOwnerId(1L);
-        when(petService.savePetForm(any())).thenReturn(form);
+        when(petService.savePetForm(any())).thenReturn(PetForm.builder().id(2L).ownerId(1L).build());
 
         mockMvc.perform(post("/owners/1/pets/2/edit"))
                 .andExpect(status().isFound())

@@ -46,17 +46,14 @@ class PetFormToPetTest {
     @Test
     public void convert() {
         //given
-        PetForm form = new PetForm();
-        form.setId(ID);
-        form.setName(NAME);
-        form.setPetType(petType);
-        form.setOwnerId(OWNER_ID);
         LocalDate date = LocalDate.now();
-        form.setBirthDate(date);
-        form.setVisitIds(Set.of(1L, 2L, 3L));
 
         //when
-        Pet pet = converter.convert(form);
+        Pet pet = converter.convert(PetForm.builder().id(ID).name(NAME)
+                                                    .petType(petType)
+                                                    .ownerId(OWNER_ID)
+                                                    .birthDate(date)
+                                                    .visitIds(Set.of(1L, 2L, 3L)).build());
 
         //then
         assertNotNull(pet);
