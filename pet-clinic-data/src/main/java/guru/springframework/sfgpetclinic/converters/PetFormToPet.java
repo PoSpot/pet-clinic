@@ -9,8 +9,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PetFormToPet implements Converter<PetForm, Pet> {
@@ -30,7 +30,7 @@ public class PetFormToPet implements Converter<PetForm, Pet> {
             return null;
         }
 
-        final Set<Visit> visits = new HashSet<>();
+        final List<Visit> visits = new ArrayList<>();
         if (source.getVisitIds() != null){
             source.getVisitIds()
                     // Visits with id only, seems to me that it's enough. Let's see. Below the opposite dir-n is also set:

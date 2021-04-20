@@ -8,8 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,10 +31,11 @@ public class Pet extends BaseEntity {
     private LocalDate birthDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
-    private Set<Visit> visits = new HashSet<>();
+    @OrderBy("date")
+    private List<Visit> visits = new ArrayList<>();
 
     @Builder
-    public Pet(Long id, String name, PetType petType, Owner owner, LocalDate birthDate, Set<Visit> visits) {
+    public Pet(Long id, String name, PetType petType, Owner owner, LocalDate birthDate, List<Visit> visits) {
         super(id);
         this.name = name;
         this.petType = petType;

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -49,7 +49,7 @@ class PetToPetFormTest {
         //given
         LocalDate date = LocalDate.now();
         PetType petType = PetType.builder().id(PET_TYPE_ID).name("donkey").build();
-        Set<Visit> visits = Set.of(Visit.builder().id(1L).build(), Visit.builder().id(2L).build(), Visit.builder().id(3L).build());
+        List<Visit> visits = List.of(Visit.builder().id(1L).build(), Visit.builder().id(2L).build(), Visit.builder().id(3L).build());
 
         //when
         PetForm form = converter.convert(Pet.builder().id(ID).name(NAME)
