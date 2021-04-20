@@ -62,6 +62,7 @@ public class PetController {
         if (result.hasErrors()) {
             return VIEW_PETS_CREATE_OR_UPDATE_PET_FORM;
         } else {
+            // petForm.ownerId is auto-bound from URL
             PetForm savedPet = petService.savePetForm(petForm);
             return "redirect:/owners/" + savedPet.getOwnerId();
         }
@@ -78,7 +79,7 @@ public class PetController {
         if (result.hasErrors()) {
             return VIEW_PETS_CREATE_OR_UPDATE_PET_FORM;
         } else {
-            // petForm.setId(id); it has it!
+            // petForm.id & .ownerId are auto-bound from URL
             PetForm savedPetForm = petService.savePetForm(petForm);
             return "redirect:/owners/" + savedPetForm.getOwnerId();
         }

@@ -1,6 +1,7 @@
 package guru.springframework.sfgpetclinic.converters;
 
 import guru.springframework.sfgpetclinic.forms.VisitForm;
+import guru.springframework.sfgpetclinic.model.Pet;
 import guru.springframework.sfgpetclinic.model.Visit;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
@@ -9,12 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class VisitFormToVisit implements Converter<VisitForm, Visit> {
-
-    private final PetFormToPet petConverter;
-
-    public VisitFormToVisit(PetFormToPet petConverter) {
-        this.petConverter = petConverter;
-    }
 
     @Synchronized
     @Nullable
@@ -25,11 +20,16 @@ public class VisitFormToVisit implements Converter<VisitForm, Visit> {
             return null;
         }
 
+        Pet pet = null;
+        if (source.getPetId() != null) {
+            pet = Pet.builder().id(source.getPetId()).build();
+        }
+
         return Visit.builder()
                 .id(source.getId())
                 .date(source.getDate())
                 .description(source.getDescription())
-                .pet(petConverter.convert(source.getPet()))
+                .pet(pet)
                 .build();
     }
 }
