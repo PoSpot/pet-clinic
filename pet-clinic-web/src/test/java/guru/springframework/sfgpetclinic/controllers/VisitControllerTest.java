@@ -59,8 +59,7 @@ class VisitControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(VisitController.PETS_CREATE_OR_UPDATE_VISIT_FORM))
                 .andExpect(model().attributeExists("visitForm"))
-                .andExpect(model().attributeExists("pet"))
-                .andExpect(model().attributeExists("owner"));
+                .andExpect(model().attributeExists("pet"));
 
         //then
         verifyNoInteractions(visitService);
