@@ -1,14 +1,12 @@
 package guru.springframework.sfgpetclinic.forms;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class PetTypeForm {
 
     private Long id;

@@ -1,9 +1,6 @@
 package guru.springframework.sfgpetclinic.forms;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +9,7 @@ import java.util.Set;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class OwnerForm {
 
     private Long id;
@@ -20,6 +18,7 @@ public class OwnerForm {
     private String address;
     private String city;
     private String telephone;
+    @Builder.Default // default init in builder
     private Set<PetForm> pets = new HashSet<>();
 
     public boolean isNew() {

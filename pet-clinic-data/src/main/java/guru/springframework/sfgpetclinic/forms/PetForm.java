@@ -1,10 +1,7 @@
 package guru.springframework.sfgpetclinic.forms;
 
 import guru.springframework.sfgpetclinic.model.PetType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class PetForm {
 
     private Long id;
@@ -26,6 +24,7 @@ public class PetForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     // This bidir. dep-cy would introduce circ. dep-cy => ids here
+    @Builder.Default
     private Set<Long> visitIds = new HashSet<>();
 
     public boolean isNew() {

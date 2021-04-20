@@ -1,9 +1,6 @@
 package guru.springframework.sfgpetclinic.forms;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -11,6 +8,7 @@ import java.time.LocalDate;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class VisitForm {
 
     private Long id;
