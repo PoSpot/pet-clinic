@@ -24,7 +24,6 @@ public class Owner extends Person {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
 
-
     @Builder
     public Owner(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Pet> pets) {
         super(id, firstName, lastName);
@@ -33,15 +32,15 @@ public class Owner extends Person {
         this.telephone = telephone;
 
         // don't overwrite if param is null, cos it was init-ed above in field
+        // (other option is @Builder.Default above on field)
         if (pets != null) {
             this.pets = pets;
         }
     }
 
-    public Owner addPet(Pet pet){
+    public void addPet(Pet pet){
         pet.setOwner(this);
         this.pets.add(pet);
-        return this;
     }
 
 
