@@ -28,6 +28,8 @@ public class Pet extends BaseEntity {
     private Owner owner;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd") // TODO keep these here and in form?
+                                            // Visit works with form only.
+                                            // Also, can do it in dataBinder of each controller (that has forms with dates)
     private LocalDate birthDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
