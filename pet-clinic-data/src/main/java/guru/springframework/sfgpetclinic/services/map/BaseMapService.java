@@ -34,7 +34,10 @@ public abstract class BaseMapService<T extends BaseEntity> implements CrudServic
     }
 
     public void delete(T t) {
-        map.values().removeIf(t::equals);
+        // TODO what does JPA do in case of null?
+        if (t != null) {
+            map.values().removeIf(t::equals);
+        }
     }
 
     private Long getNextId() {

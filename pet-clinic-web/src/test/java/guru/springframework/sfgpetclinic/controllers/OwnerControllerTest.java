@@ -6,11 +6,11 @@ import guru.springframework.sfgpetclinic.services.OwnerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -36,16 +35,6 @@ class OwnerControllerTest {
 
     @Mock
     OwnerService service;
-
-    @Spy
-    Owner owner;
-
-    @Mock
-    Model model;
-
-    @Captor
-    // instead of ArgumentCaptor<List<Owner>> argumentCaptor = ArgumentCaptor.forClass(List.class);
-    ArgumentCaptor<List<Owner>> argumentCaptor;
 
     MockMvc mockMvc;
 
@@ -89,28 +78,23 @@ class OwnerControllerTest {
         mockMvc.perform(get("/owners").param("lastName", LAST_NAME))
                 .andExpect(status().isOk())
                 .andExpect(view().name(OwnerController.VIEW_OWNERS_OWNERS_LIST))
-                .andExpect(view().name(OwnerController.VIEW_OWNERS_OWNERS_LIST))
                 .andExpect(model().attribute("selections", hasSize(owners.size())));
 
         verify(service).findByLastNameLike(LAST_NAME);
     }
 
-    @Test /*Unable to send owner-mock with perform in order to verify(owner).setLastName("") =>
-    so call the method directly*/
-        // EXERCISE maybe u can: testPostNewRecipeForm in recipes
-    void processFindOwnersEmptyStringAllOwners() {
-        //given
+    @Test
+    void processFindOwnersEmptyStringAllOwners() throws Exception {
+
         when(service.findByLastNameLike("")).thenReturn(new ArrayList<>(owners));
 
-        //when
-        String viewName = controller.processFindForm(owner, null, model);
+        mockMvc.perform(get("/owners")
+                    .param("lastName", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name(OwnerController.VIEW_OWNERS_OWNERS_LIST))
+                .andExpect(model().attribute("selections", hasSize(owners.size())));
 
-        assertEquals(OwnerController.VIEW_OWNERS_OWNERS_LIST, viewName);
-        verify(owner).setLastName("");
         verify(service).findByLastNameLike("");
-        // selections are owners + captors better in verify(), not in when()
-        verify(model).addAttribute(eq("selections"), argumentCaptor.capture());
-        assertEquals(owners.size(), argumentCaptor.getValue().size());
     }
 
     @Test

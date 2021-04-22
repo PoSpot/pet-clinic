@@ -40,10 +40,33 @@ class BaseMapServiceTest {
     }
 
     @Test
+    void testFindByIdNotExistingId() {
+        PetType type = service.findById(5L);
+        assertNull(type);
+    }
+
+    @Test
+    void testFindByIdNullId() {
+        PetType type = service.findById(null);
+        assertNull(type);
+    }
+
+    @Test
     void testSaveExistingId() {
         PetType savedType = service.save(PetType.builder().name(cat).id(2L).build());
         assertNotNull(savedType);
         assertEquals(cat, service.findById(2L).getName());
+    }
+
+    @Test
+    void testUpdate() {
+        assertEquals(dog, service.findById(id).getName());
+
+        PetType savedPet = service.save(PetType.builder().id(id).name(cat).build());
+        // id - existing in db (m, in map)
+        assertEquals(id, savedPet.getId());
+        assertEquals(1, service.findAll().size());
+        assertEquals(cat, service.findById(id).getName());
     }
 
     @Test
@@ -61,10 +84,47 @@ class BaseMapServiceTest {
     }
 
     @Test
+    void deleteByIdWrongId() {
+        assertEquals(1, service.findAll().size());
+        service.deleteById(5L);
+        assertEquals(1, service.findAll().size());
+    }
+
+    @Test
+    void deleteByIdNullId() {
+        assertEquals(1, service.findAll().size());
+        service.deleteById(null);
+        assertEquals(1, service.findAll().size());
+    }
+
+    @Test
     void testDelete() {
         PetType type = service.findById(id);
         assertNotNull(service.findById(type.getId()));
         service.delete(type);
         assertNull(service.findById(type.getId()));
+    }
+
+    @Test
+    void testDeleteWithWrongId() {
+        assertEquals(1, service.findAll().size());
+        PetType type = PetType.builder().id(5L).build();
+        service.delete(type);
+        assertEquals(1, service.findAll().size());
+    }
+
+    @Test
+    void testDeleteWithNullId() {
+        assertEquals(1, service.findAll().size());
+        PetType type = PetType.builder().build();
+        service.delete(type);
+        assertEquals(1, service.findAll().size());
+    }
+
+    @Test
+    void testDeleteNull() {
+        assertEquals(1, service.findAll().size());
+        service.delete(null);
+        assertEquals(1, service.findAll().size());
     }
 }

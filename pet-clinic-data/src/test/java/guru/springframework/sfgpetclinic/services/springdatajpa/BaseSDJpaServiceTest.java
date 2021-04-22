@@ -99,4 +99,6 @@ class BaseSDJpaServiceTest {
         service.delete(pet);
         verify(repo).delete(pet);
     }
+
+    // EXERCISE scenarios as BaseMapServiceTest
 }
