@@ -7,8 +7,8 @@ CREATE DATABASE sfg_dev;
 CREATE DATABASE sfg_prod;
 
 #Create database service accounts
-CREATE USER 'sfg_dev_user'@'localhost' IDENTIFIED BY 'guru';
-CREATE USER 'sfg_prod_user'@'localhost' IDENTIFIED BY 'guru';
+CREATE USER 'sfg_dev_user'@'localhost' IDENTIFIED BY '';
+CREATE USER 'sfg_prod_user'@'localhost' IDENTIFIED BY '';
 
 #Database grants
 GRANT SELECT ON sfg_dev.* to 'sfg_dev_user'@'localhost';
