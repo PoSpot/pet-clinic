@@ -13,4 +13,8 @@ public class SpecialitySDJpaService extends BaseSDJpaService<Speciality> impleme
     public SpecialitySDJpaService(SpecialityRepository specialityRepo) {
         super(specialityRepo);
     }
+
+    public Speciality findByDescription(String description) {
+        return ((SpecialityRepository) crudRepo).findByDescription(description).orElse(null);
+    }
 }
