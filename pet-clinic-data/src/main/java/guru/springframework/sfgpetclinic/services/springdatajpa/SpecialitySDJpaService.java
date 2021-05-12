@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("springdatajpa")
+@Profile({"default", "dev", "prod"})
 public class SpecialitySDJpaService extends BaseSDJpaService<Speciality> implements SpecialityService {
 
     public SpecialitySDJpaService(SpecialityRepository specialityRepo) {

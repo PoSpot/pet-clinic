@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile({"default", "map"})
+@Profile("map")
 public class VisitMapService extends BaseMapService<Visit> implements VisitService {
     @Override
     public VisitForm saveVisitForm(VisitForm visitForm) {

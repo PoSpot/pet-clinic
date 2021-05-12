@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Profile("springdatajpa")
+@Profile({"default", "dev", "prod"})
 public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerService {
 
 

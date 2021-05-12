@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile({"default", "map"})
+@Profile("map")
 public class PetMapService extends BaseMapService<Pet> implements PetService {
 
     private final PetTypeService petTypeService;
