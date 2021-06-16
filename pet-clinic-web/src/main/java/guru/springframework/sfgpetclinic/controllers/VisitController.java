@@ -50,7 +50,7 @@ public class VisitController {
         }
 
         // visitForm.petId auto-bound from URL
-        VisitForm savedVisit = visitService.saveVisitForm(visitForm);
+        visitService.saveVisitForm(visitForm);
         return "redirect:/owners/" + ownerId;
     }
 }

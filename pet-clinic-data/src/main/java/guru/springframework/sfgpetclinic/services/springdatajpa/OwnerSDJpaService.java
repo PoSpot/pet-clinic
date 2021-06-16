@@ -38,9 +38,10 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
     @Transactional
     @Override
     public OwnerForm saveOwnerForm(OwnerForm form) {
-        Owner detachedOwner = ownerFormToOwner.convert(form);
 
-        Owner savedOwner = crudRepo.save(detachedOwner);
+        var detachedOwner = ownerFormToOwner.convert(form);
+
+        var savedOwner = crudRepo.save(detachedOwner); // TODO who does the null-check?
         log.debug("Saved OwnerId:" + savedOwner.getId());
         return ownerToOwnerForm.convert(savedOwner);
     }

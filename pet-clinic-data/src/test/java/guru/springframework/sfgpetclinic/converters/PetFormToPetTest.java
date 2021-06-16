@@ -30,21 +30,21 @@ class PetFormToPetTest {
 
     @BeforeEach
     public void setUp() {
-        converter = new PetFormToPet(new PetTypeFormToPetType());
+        converter = new PetFormToPet();
     }
 
     @Test
-    public void testNullObject() throws Exception {
+    void testNullObject() throws Exception {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() throws Exception {
+    void testEmptyObject() throws Exception {
         assertNotNull(converter.convert(new PetForm()));
     }
 
     @Test
-    public void convert() {
+    void convert() {
         //given
         LocalDate date = LocalDate.now();
 

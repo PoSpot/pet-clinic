@@ -53,7 +53,7 @@ class VisitControllerTest {
     }
 
     @Test
-    public void initCreationForm() throws Exception {
+    void initCreationForm() throws Exception {
 
         //when
         mockMvc.perform(get("/owners/1/pets/2/visits/new"))
@@ -67,7 +67,7 @@ class VisitControllerTest {
     }
 
     @Test
-    public void processCreationForm() throws Exception {
+    void processCreationForm() throws Exception {
         //given
         given(visitService.saveVisitForm(any())).willReturn(VisitForm.builder().id(1L).build());
 

@@ -15,12 +15,6 @@ import java.util.List;
 @Component
 public class PetFormToPet implements Converter<PetForm, Pet> {
 
-    private final PetTypeFormToPetType petTypeConverter;
-
-    public PetFormToPet(PetTypeFormToPetType petTypeConverter) {
-        this.petTypeConverter = petTypeConverter;
-    }
-
     @Synchronized
     @Nullable
     @Override
@@ -38,7 +32,7 @@ public class PetFormToPet implements Converter<PetForm, Pet> {
                     .forEach(visitId -> visits.add(Visit.builder().id(visitId).build()));
         }
 
-        final Pet pet = Pet.builder().id(source.getId())
+        final var pet = Pet.builder().id(source.getId())
                 .name(source.getName())
                 .petType(source.getPetType())
                 .birthDate(source.getBirthDate())
@@ -48,7 +42,7 @@ public class PetFormToPet implements Converter<PetForm, Pet> {
         // KIM Kind of shady, think about it dep-ing on usage
         // Should be fine, cos: Ex.: saving pet -> need owner id(u have it) -> find owner in db -> set pet -> save
         if(source.getOwnerId() != null){
-            Owner owner = Owner.builder().id(source.getOwnerId()).build();
+            var owner = Owner.builder().id(source.getOwnerId()).build();
             // pet.setOwner(owner); unnecessary cos it's set in owner.addPet()
             owner.addPet(pet); // does the owner really need this pet..? (If removed, uncomment the above line)
         }

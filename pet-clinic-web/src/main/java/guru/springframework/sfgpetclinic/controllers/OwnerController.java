@@ -20,6 +20,8 @@ public class OwnerController {
     public static final String VIEW_OWNERS_FIND_OWNERS = "owners/findOwners";
     public static final String VIEW_OWNERS_OWNERS_LIST = "owners/ownersList";
     public static final String VIEW_OWNERS_OWNER_DETAILS = "owners/ownerDetails";
+    public static final String OWNER_ATTRIBUTE_NAME = "owner";
+    public static final String REDIRECT_OWNERS = "redirect:/owners/";
 
     private final OwnerService ownerService;
 
@@ -34,20 +36,20 @@ public class OwnerController {
 
     @GetMapping("/find")
     public String initFindForm(Model model) {
-        model.addAttribute("owner", new Owner());
+        model.addAttribute("ownerForm", new Owner());
         return VIEW_OWNERS_FIND_OWNERS;
     }
 
     @GetMapping
-    public String processFindForm(Owner owner, BindingResult result, Model model) {
+    public String processFindForm(OwnerForm ownerForm, BindingResult result, Model model) { // OwnerForm or well, simply a String
 
         // allow parameterless GET request for /owners to return all records
-        if (owner.getLastName() == null) {
-            owner.setLastName(""); // empty string signifies broadest possible search
+        if (ownerForm.getLastName() == null) {
+            ownerForm.setLastName(""); // empty string signifies broadest possible search
         }
 
         // find owners by last name
-        Collection<Owner> results = this.ownerService.findByLastNameLike(owner.getLastName());
+        Collection<Owner> results = this.ownerService.findByLastNameLike(ownerForm.getLastName());
         if (results.isEmpty()) {
             // no owners found
             // back to the form with an error set to the lastName field
@@ -55,8 +57,7 @@ public class OwnerController {
             return VIEW_OWNERS_FIND_OWNERS;
         } else if (results.size() == 1) {
             // 1 owner found
-            owner = results.iterator().next();
-            return "redirect:/owners/" + owner.getId();
+            return REDIRECT_OWNERS + results.iterator().next().getId();
         } else {
             // multiple owners found
             model.addAttribute("selections", results);
@@ -69,13 +70,13 @@ public class OwnerController {
     @GetMapping("/{id}")
     public String displayOwner(@PathVariable Long id, Model model) {
 
-        model.addAttribute("owner", ownerService.findById(id));
+        model.addAttribute(OWNER_ATTRIBUTE_NAME, ownerService.findById(id));
         return VIEW_OWNERS_OWNER_DETAILS;
     }
 
     @GetMapping("/new")
     public String initCreationForm(Model model){
-        model.addAttribute("owner", new OwnerForm());
+        model.addAttribute(OWNER_ATTRIBUTE_NAME, new OwnerForm());
 
         return VIEW_OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
     }
@@ -85,14 +86,14 @@ public class OwnerController {
         if (result.hasErrors()) {
             return VIEW_OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
         } else {
-            OwnerForm savedOwner = ownerService.saveOwnerForm(ownerForm);
-            return "redirect:/owners/" + savedOwner.getId();
+            var savedOwner = ownerService.saveOwnerForm(ownerForm);
+            return REDIRECT_OWNERS + savedOwner.getId();
         }
     }
 
     @GetMapping("/{id}/edit")
     public String initUpdateForm(@PathVariable Long id, Model model) {
-        model.addAttribute("owner", ownerService.findOwnerFormById(id));
+        model.addAttribute(OWNER_ATTRIBUTE_NAME, ownerService.findOwnerFormById(id));
         return VIEW_OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
     }
 
@@ -102,8 +103,8 @@ public class OwnerController {
             return VIEW_OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
         } else {
             ownerForm.setId(id);
-            OwnerForm savedOwnerForm = ownerService.saveOwnerForm(ownerForm);
-            return "redirect:/owners/" + savedOwnerForm.getId();
+            var savedOwnerForm = ownerService.saveOwnerForm(ownerForm);
+            return REDIRECT_OWNERS + savedOwnerForm.getId();
         }
     }
 }

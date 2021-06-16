@@ -1,7 +1,7 @@
 package guru.springframework.sfgpetclinic.controllers;
 
+import guru.springframework.sfgpetclinic.forms.OwnerForm;
 import guru.springframework.sfgpetclinic.forms.PetForm;
-import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.model.PetType;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import guru.springframework.sfgpetclinic.services.PetService;
@@ -43,12 +43,12 @@ class PetControllerTest {
 
     MockMvc mockMvc;
 
-    Owner owner;
+    OwnerForm ownerForm;
     Set<PetType> petTypes;
 
     @BeforeEach
     void setUp() {
-        owner = Owner.builder().id(1L).build();
+        ownerForm = OwnerForm.builder().id(1L).build();
 
         petTypes = new HashSet<>();
         petTypes.add(PetType.builder().id(1L).name("Dog").build());
@@ -59,7 +59,7 @@ class PetControllerTest {
                 .build();
 
         // Model attrs of the pet controller
-        when(ownerService.findById(anyLong())).thenReturn(owner);
+        when(ownerService.findOwnerFormById(anyLong())).thenReturn(ownerForm);
         when(petTypeService.findAll()).thenReturn(petTypes);
     }
 
@@ -68,7 +68,7 @@ class PetControllerTest {
 
         mockMvc.perform(get("/owners/1/pets/new"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("owner"))
+                .andExpect(model().attributeExists("ownerForm"))
                 .andExpect(model().attributeExists("petForm"))
                 .andExpect(model().attributeExists("types"))
                 .andExpect(view().name(PetController.VIEW_PETS_CREATE_OR_UPDATE_PET_FORM));
@@ -92,7 +92,7 @@ class PetControllerTest {
 
         mockMvc.perform(get("/owners/1/pets/2/edit"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("owner"))
+                .andExpect(model().attributeExists("ownerForm"))
                 .andExpect(model().attributeExists("petForm"))
                 .andExpect(view().name(PetController.VIEW_PETS_CREATE_OR_UPDATE_PET_FORM));
     }

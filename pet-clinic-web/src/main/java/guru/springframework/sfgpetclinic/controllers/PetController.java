@@ -1,7 +1,7 @@
 package guru.springframework.sfgpetclinic.controllers;
 
+import guru.springframework.sfgpetclinic.forms.OwnerForm;
 import guru.springframework.sfgpetclinic.forms.PetForm;
-import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.model.PetType;
 import guru.springframework.sfgpetclinic.services.OwnerService;
 import guru.springframework.sfgpetclinic.services.PetService;
@@ -37,9 +37,13 @@ public class PetController {
         return petTypeService.findAll();
     }
 
-    @ModelAttribute("owner")
-    public Owner findOwner(@PathVariable Long ownerId) {
-        return ownerService.findById(ownerId);
+    @ModelAttribute("ownerForm")
+    public OwnerForm findOwner(@PathVariable Long ownerId) {
+//        well, ownerForm could easily be Owner, cos for the moment it's only for display purposes.
+//        Or even simply, firstName+lastName.
+//        But as I read it below as @ModelAttr, SonarLint was warning me that it's entity, sooo...
+//        -> changed to form (Or could findById by the id in url..)
+        return ownerService.findOwnerFormById(ownerId);
     }
 
     @InitBinder("owner")
@@ -55,15 +59,17 @@ public class PetController {
     }
 
     @PostMapping("/new")
-    public String processCreationForm(@Valid PetForm petForm, BindingResult result, @ModelAttribute Owner owner) {
-        if (StringUtils.hasLength(petForm.getName()) && petForm.isNew() && owner.getPet(petForm.getName(), true) != null) {
+    public String processCreationForm(@Valid PetForm petForm, BindingResult result, @ModelAttribute OwnerForm ownerForm) {
+        if (StringUtils.hasLength(petForm.getName())
+                && petForm.isNew()
+                && ownerForm.getPet(petForm.getName(), true) != null) {
             result.rejectValue("name", "duplicate", "already exists");
         }
         if (result.hasErrors()) {
             return VIEW_PETS_CREATE_OR_UPDATE_PET_FORM;
         } else {
             // petForm.ownerId is auto-bound from URL
-            PetForm savedPet = petService.savePetForm(petForm);
+            var savedPet = petService.savePetForm(petForm);
             return "redirect:/owners/" + savedPet.getOwnerId();
         }
     }
@@ -80,7 +86,7 @@ public class PetController {
             return VIEW_PETS_CREATE_OR_UPDATE_PET_FORM;
         } else {
             // petForm.id & .ownerId are auto-bound from URL
-            PetForm savedPetForm = petService.savePetForm(petForm);
+            var savedPetForm = petService.savePetForm(petForm);
             return "redirect:/owners/" + savedPetForm.getOwnerId();
         }
     }

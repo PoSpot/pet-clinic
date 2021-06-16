@@ -41,39 +41,39 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadData() {
-        PetType dogType = new PetType();
+        var dogType = new PetType();
         dogType.setName("dog");
         // !! no need to get the id from the saved entity (same below, catType)
         petTypeService.save(dogType);
 
-        PetType catType = new PetType();
+        var catType = new PetType();
         catType.setName("cat");
         petTypeService.save(catType);
 
         log.info("Loaded Pet types....");
 
-        Speciality radiology = new Speciality();
+        var radiology = new Speciality();
         radiology.setDescription("Radiology");
-        Speciality savedRadiology = specialityService.save(radiology);
+        var savedRadiology = specialityService.save(radiology);
 
-        Speciality surgery = new Speciality();
+        var surgery = new Speciality();
         surgery.setDescription("Surgery");
-        Speciality savedSurgery = specialityService.save(surgery);
+        var savedSurgery = specialityService.save(surgery);
 
-        Speciality dentistry = new Speciality();
+        var dentistry = new Speciality();
         dentistry.setDescription("Dentistry");
-        Speciality savedDentistry = specialityService.save(dentistry);
+        var savedDentistry = specialityService.save(dentistry);
 
         log.info("Loaded Specialities....");
 
-        Owner owner1 = new Owner();
+        var owner1 = new Owner();
         owner1.setFirstName("Michael");
         owner1.setLastName("Weston");
         owner1.setAddress("123 Brickerel");
         owner1.setCity("Miami");
         owner1.setTelephone("1231231234");
 
-        Pet mikesPet = new Pet();
+        var mikesPet = new Pet();
         mikesPet.setPetType(dogType);
         mikesPet.setOwner(owner1);
         mikesPet.setBirthDate(LocalDate.now());
@@ -83,14 +83,14 @@ public class DataLoader implements CommandLineRunner {
 
         ownerService.save(owner1);
 
-        Owner owner2 = new Owner();
+        var owner2 = new Owner();
         owner2.setFirstName("Fiona");
         owner2.setLastName("Glenanne");
         owner2.setAddress("123 Brickerel");
         owner2.setCity("Miami");
         owner2.setTelephone("1231231234");
 
-        Pet fionasCat = new Pet();
+        var fionasCat = new Pet();
         fionasCat.setName("Just Cat");
         fionasCat.setOwner(owner2);
         fionasCat.setBirthDate(LocalDate.now());
@@ -101,7 +101,7 @@ public class DataLoader implements CommandLineRunner {
 
         log.info("Loaded Owners....");
 
-        Visit catVisit = new Visit();
+        var catVisit = new Visit();
         catVisit.setPet(fionasCat);
         catVisit.setDate(LocalDate.now());
         catVisit.setDescription("Sneezy Kitty");
@@ -110,14 +110,14 @@ public class DataLoader implements CommandLineRunner {
 
         log.info("Loaded Visits....");
 
-        Vet vet1 = new Vet();
+        var vet1 = new Vet();
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
         vet1.getSpecialities().add(savedRadiology);
 
         vetService.save(vet1);
 
-        Vet vet2 = new Vet();
+        var vet2 = new Vet();
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
         vet2.getSpecialities().add(savedSurgery);
@@ -125,7 +125,7 @@ public class DataLoader implements CommandLineRunner {
 
         vetService.save(vet2);
 
-        Vet vet3 = new Vet();
+        var vet3 = new Vet();
         vet3.setFirstName("Po");
         vet3.setLastName("Pa");
 

@@ -54,7 +54,7 @@ class OwnerControllerTest {
         mockMvc.perform(get("/owners/find"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(OwnerController.VIEW_OWNERS_FIND_OWNERS))
-                .andExpect(model().attributeExists("owner"));
+                .andExpect(model().attributeExists("ownerForm"));
 
         verifyNoInteractions(service);
     }
@@ -116,8 +116,8 @@ class OwnerControllerTest {
 
         mockMvc.perform(get("/owners"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeHasFieldErrors("owner", "lastName"))
-                .andExpect(model().attributeHasFieldErrorCode("owner", "lastName", "notFound"))
+                .andExpect(model().attributeHasFieldErrors("ownerForm", "lastName"))
+                .andExpect(model().attributeHasFieldErrorCode("ownerForm", "lastName", "notFound"))
                 .andExpect(view().name(OwnerController.VIEW_OWNERS_FIND_OWNERS));
     }
 

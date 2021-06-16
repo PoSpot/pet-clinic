@@ -28,21 +28,21 @@ class OwnerFormToOwnerTest {
 
     @BeforeEach
     public void setUp() {
-        converter = new OwnerFormToOwner(new PetFormToPet(new PetTypeFormToPetType()));
+        converter = new OwnerFormToOwner(new PetFormToPet());
     }
 
     @Test
-    public void testNullObject() throws Exception {
+    void testNullObject() throws Exception {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() throws Exception {
+    void testEmptyObject() throws Exception {
         assertNotNull(converter.convert(new OwnerForm()));
     }
 
     @Test
-    public void convert() {
+    void convert() {
         //given
         Set<PetForm> pets = new HashSet<>();
         pets.add(PetForm.builder().id(PET_ID1).build());

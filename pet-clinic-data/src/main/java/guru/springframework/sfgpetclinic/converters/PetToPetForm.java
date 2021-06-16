@@ -13,12 +13,6 @@ import java.util.Set;
 @Component
 public class PetToPetForm implements Converter<Pet, PetForm> {
 
-    private final PetTypeToPetTypeForm petTypeConverter;
-
-    public PetToPetForm(PetTypeToPetTypeForm petTypeConverter) {
-        this.petTypeConverter = petTypeConverter;
-    }
-
     @Synchronized // Converter intfc: Implementations of this interface are thread-safe and can be shared. (?)
     // EXERCISE Is this some Spring magic, so we don't need @Synchronized?
     @Nullable
@@ -34,7 +28,7 @@ public class PetToPetForm implements Converter<Pet, PetForm> {
             source.getVisits()
                     .forEach(visit -> visits.add(visit.getId()));
         }
-        final PetForm form = PetForm.builder().id(source.getId())
+        final var form = PetForm.builder().id(source.getId())
                 .name(source.getName())
                 .petType(source.getPetType())
                 .birthDate(source.getBirthDate())

@@ -31,21 +31,21 @@ class PetToPetFormTest {
 
     @BeforeEach
     public void setUp() {
-        converter = new PetToPetForm(new PetTypeToPetTypeForm());
+        converter = new PetToPetForm();
     }
 
     @Test
-    public void testNullObject() throws Exception {
+    void testNullObject() throws Exception {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() throws Exception {
+    void testEmptyObject() throws Exception {
         assertNotNull(converter.convert(new Pet()));
     }
 
     @Test
-    public void convert() {
+    void convert() {
         //given
         LocalDate date = LocalDate.now();
         PetType petType = PetType.builder().id(PET_TYPE_ID).name("donkey").build();

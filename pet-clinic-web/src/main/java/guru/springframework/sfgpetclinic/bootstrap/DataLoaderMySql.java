@@ -30,17 +30,17 @@ public class DataLoaderMySql implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        if (petTypeService.findAll().size() == 0){
+        if (petTypeService.findAll().isEmpty()){
             log.debug("Loading Pet Types");
             loadPetTypes();
         }
 
-        if (specialityService.findAll().size() == 0){
+        if (specialityService.findAll().isEmpty()){
             log.debug("Loading Specialities");
             loadSpecialities();
         }
 
-        if (vetService.findAll().size() == 0){
+        if (vetService.findAll().isEmpty()){
             log.debug("Loading Vets");
             loadVets();
         }
@@ -48,12 +48,12 @@ public class DataLoaderMySql implements CommandLineRunner {
 
     private void loadPetTypes() {
 
-        PetType dogType = new PetType();
+        var dogType = new PetType();
         dogType.setName("dog");
         // !! no need to get the id from the saved entity (same below, catType)
         petTypeService.save(dogType);
 
-        PetType catType = new PetType();
+        var catType = new PetType();
         catType.setName("cat");
         petTypeService.save(catType);
 
@@ -62,37 +62,37 @@ public class DataLoaderMySql implements CommandLineRunner {
 
     private void loadSpecialities() {
 
-        Speciality radiology = new Speciality();
+        var radiology = new Speciality();
         radiology.setDescription("Radiology");
-        Speciality savedRadiology = specialityService.save(radiology);
+        specialityService.save(radiology);
 
-        Speciality surgery = new Speciality();
+        var surgery = new Speciality();
         surgery.setDescription("Surgery");
-        Speciality savedSurgery = specialityService.save(surgery);
+        specialityService.save(surgery);
 
-        Speciality dentistry = new Speciality();
+        var dentistry = new Speciality();
         dentistry.setDescription("Dentistry");
-        Speciality savedDentistry = specialityService.save(dentistry);
+        specialityService.save(dentistry);
 
         log.info("Specialities loaded....");
     }
 
     private void loadVets() {
 
-        Vet vet1 = new Vet();
+        var vet1 = new Vet();
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
         vet1.getSpecialities().add(specialityService.findByDescription("Radiology"));
         vetService.save(vet1);
 
-        Vet vet2 = new Vet();
+        var vet2 = new Vet();
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
         vet2.getSpecialities().add(specialityService.findByDescription("Surgery"));
         vet2.getSpecialities().add(specialityService.findByDescription("Dentistry"));
         vetService.save(vet2);
 
-        Vet vet3 = new Vet();
+        var vet3 = new Vet();
         vet3.setFirstName("Po");
         vet3.setLastName("Pa");
         vetService.save(vet3);

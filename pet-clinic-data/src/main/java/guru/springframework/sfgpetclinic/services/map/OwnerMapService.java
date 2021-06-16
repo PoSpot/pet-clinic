@@ -21,7 +21,7 @@ public class OwnerMapService extends BaseMapService<Owner> implements OwnerServi
 
     @Override
     public List<Owner> findByLastNameLike(String lastName) {
-        throw new RuntimeException("Not implemented!");
+        throw new RuntimeException("Not implemented!"); // TODO add error handling: throw dedicated(app-generated) exc
     }
 
     @Override
