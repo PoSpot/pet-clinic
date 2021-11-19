@@ -7,12 +7,14 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Service  You should not have @Component on top of an abstract class (abstr-> not to be instantiated) KIM
-public abstract class BaseSDJpaService<T extends BaseEntity> implements CrudService<T, Long> {
+// @Service  You should not have @Component on top of an abstract class (abstr-> not to be instantiated) KIM
+// crudRepo was generified (R extends CrudRepository<T, Long>) in order to
+// be able to use the specific repo impl-ns in each service without casting them. (ex. OwnerRepo in OwnerService)
+public abstract class BaseSDJpaService<T extends BaseEntity, R extends CrudRepository<T, Long>> implements CrudService<T, Long> {
 
-    protected final CrudRepository<T, Long> crudRepo;
+    protected final R crudRepo;
 
-    protected BaseSDJpaService(CrudRepository<T, Long> crudRepo) {
+    protected BaseSDJpaService(R crudRepo) {
         this.crudRepo = crudRepo;
     }
 

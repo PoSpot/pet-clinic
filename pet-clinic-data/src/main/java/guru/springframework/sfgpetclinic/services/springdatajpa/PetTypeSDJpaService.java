@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile({"default", "dev", "prod"})
-public class PetTypeSDJpaService extends BaseSDJpaService<PetType> implements PetTypeService {
+public class PetTypeSDJpaService extends BaseSDJpaService<PetType, PetTypeRepository> implements PetTypeService {
 
     public PetTypeSDJpaService(PetTypeRepository petTypeRepo) {
         super(petTypeRepo);

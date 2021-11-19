@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Profile({"default", "dev", "prod"})
-public class PetSDJpaService extends BaseSDJpaService<Pet> implements PetService {
+public class PetSDJpaService extends BaseSDJpaService<Pet, PetRepository> implements PetService {
 
     private final PetToPetForm petToPetForm;
     private final PetFormToPet petFormToPet;

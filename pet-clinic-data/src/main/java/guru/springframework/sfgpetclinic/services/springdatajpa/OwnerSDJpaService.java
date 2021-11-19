@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @Service
 @Profile({"default", "dev", "prod"})
-public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerService {
+public class OwnerSDJpaService extends BaseSDJpaService<Owner, OwnerRepository> implements OwnerService {
 
 
     private final OwnerFormToOwner ownerFormToOwner;
@@ -32,7 +32,7 @@ public class OwnerSDJpaService extends BaseSDJpaService<Owner> implements OwnerS
 
     @Override
     public List<Owner> findByLastNameLike(String lastName) {
-        return ((OwnerRepository) crudRepo).findByLastNameLike("%" + lastName + "%");
+        return crudRepo.findByLastNameLike("%" + lastName + "%");
     }
 
     @Transactional

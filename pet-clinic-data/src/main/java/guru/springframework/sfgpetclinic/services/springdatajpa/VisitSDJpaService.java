@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile({"default", "dev", "prod"})
-public class VisitSDJpaService extends BaseSDJpaService<Visit> implements VisitService {
+public class VisitSDJpaService extends BaseSDJpaService<Visit, VisitRepository> implements VisitService {
 
     private final VisitFormToVisit visitFormToVisit;
     private final VisitToVisitForm visitToVisitForm;

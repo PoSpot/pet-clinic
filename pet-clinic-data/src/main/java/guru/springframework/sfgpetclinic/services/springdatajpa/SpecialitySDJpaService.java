@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile({"default", "dev", "prod"})
-public class SpecialitySDJpaService extends BaseSDJpaService<Speciality> implements SpecialityService {
+public class SpecialitySDJpaService extends BaseSDJpaService<Speciality, SpecialityRepository> implements SpecialityService {
 
     public SpecialitySDJpaService(SpecialityRepository specialityRepo) {
         super(specialityRepo);
     }
 
     public Speciality findByDescription(String description) {
-        return ((SpecialityRepository) crudRepo).findByDescription(description).orElse(null);
+        return crudRepo.findByDescription(description).orElse(null);
     }
 }
